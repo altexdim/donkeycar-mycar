@@ -367,13 +367,6 @@ python manage.py drive --model models/mypilot_circuit_launch_24.h5 --myconfig=my
     29:10 56:98 84:23
     29:26 56:75 84:45
     29:40 56:84 84:49 
-INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.28 lap_time=29.28
-INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.70 lap_time=27.42
-INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.60 lap_time=27.90
-INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=4 total_time=112.43 lap_time=27.83
-INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=5 total_time=140.35 lap_time=27.92
-INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=6 total_time=168.03 lap_time=27.68
-
 
 #memory with bad data 60hz
 python train.py --model models/mypilot_circuit_launch_25.h5 --tubs=data/tub_10_fast_nolat,data/tub_11_fast_nolat --type=memory
@@ -381,4 +374,31 @@ python train.py --model models/mypilot_circuit_launch_25.h5 --tubs=data/tub_10_f
 python train.py --model models/mypilot_circuit_launch_27.h5 --tubs=data/tub_70_fast --type=rnn
 python manage.py drive --model models/mypilot_circuit_launch_27.h5 --myconfig=myconfig-trnm-local.py --type=rnn
 
+21 Aug 2021
+-----------
+python manage.py drive --model models/mypilot_circuit_launch_24.h5 --myconfig=myconfig-trnm-local.py --type=memory
+    lap_number=1 total_time=29.42 lap_time=29.42
+    lap_number=2 total_time=57.15 lap_time=27.73
+    lap_number=3 total_time=84.61 lap_time=27.45
+
+    lap_number=1 total_time=30.41 lap_time=30.41
+    lap_number=2 total_time=57.82 lap_time=27.41
+    lap_number=3 total_time=85.53 lap_time=27.70
+
+    lap_number=1 total_time=29.82 lap_time=29.82
+    lap_number=2 total_time=57.24 lap_time=27.41
+    lap_number=3 total_time=85.02 lap_time=27.78
+
+python manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=myconfig-trnm-local.py
+    lap_number=1 total_time=29.26 lap_time=29.26
+    lap_number=2 total_time=57.06 lap_time=27.80
+    lap_number=3 total_time=84.65 lap_time=27.59
+
+    lap_number=1 total_time=29.86 lap_time=29.86
+    lap_number=2 total_time=57.48 lap_time=27.62
+    lap_number=3 total_time=85.95 lap_time=28.47
+
+    lap_number=1 total_time=29.82 lap_time=29.82
+    lap_number=2 total_time=57.64 lap_time=27.82
+    lap_number=3 total_time=85.76 lap_time=28.12
 
