@@ -367,10 +367,18 @@ python manage.py drive --model models/mypilot_circuit_launch_24.h5 --myconfig=my
     29:10 56:98 84:23
     29:26 56:75 84:45
     29:40 56:84 84:49 
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.28 lap_time=29.28
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.70 lap_time=27.42
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.60 lap_time=27.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=4 total_time=112.43 lap_time=27.83
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=5 total_time=140.35 lap_time=27.92
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=6 total_time=168.03 lap_time=27.68
 
 
 #memory with bad data 60hz
 python train.py --model models/mypilot_circuit_launch_25.h5 --tubs=data/tub_10_fast_nolat,data/tub_11_fast_nolat --type=memory
 
+python train.py --model models/mypilot_circuit_launch_27.h5 --tubs=data/tub_70_fast --type=rnn
+python manage.py drive --model models/mypilot_circuit_launch_27.h5 --myconfig=myconfig-trnm-local.py --type=rnn
 
 
