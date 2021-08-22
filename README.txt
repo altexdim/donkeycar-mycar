@@ -405,3 +405,4 @@ python manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=
 22 Aug 2021
 -----------
 python manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=myconfig-trnm-local.py
+python manage.py drive --model models/mypilot_circuit_launch_24.h5 --myconfig=myconfig-trnm-local.py --type=memory
