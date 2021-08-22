@@ -402,3 +402,6 @@ python manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=
     lap_number=2 total_time=57.64 lap_time=27.82
     lap_number=3 total_time=85.76 lap_time=28.12
 
+22 Aug 2021
+-----------
+python manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=myconfig-trnm-local.py

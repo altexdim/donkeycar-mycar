@@ -28,7 +28,7 @@ from donkeycar.parts.controller import LocalWebController, WebFpv, JoystickContr
 from donkeycar.parts.throttle_filter import ThrottleFilter
 from donkeycar.parts.behavior import BehaviorPart
 from donkeycar.parts.file_watcher import FileWatcher
-from donkeycar.parts.launch import AiLaunch
+from donkeycar.parts.launch import AiCatapult
 from donkeycar.pipeline.augmentations import ImageAugmentation
 from donkeycar.utils import *
 
@@ -502,7 +502,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
 
 
     #to give the car a boost when starting ai mode in a race.
-    aiLauncher = AiLaunch(cfg.AI_LAUNCH_DURATION, cfg.AI_LAUNCH_THROTTLE, cfg.AI_LAUNCH_KEEP_ENABLED)
+    aiLauncher = AiCatapult(cfg.AI_LAUNCH_DURATION, cfg.AI_LAUNCH_THROTTLE, cfg.AI_LAUNCH_KEEP_ENABLED)
 
     V.add(aiLauncher,
           inputs=['user/mode', 'throttle', 'angle'],
