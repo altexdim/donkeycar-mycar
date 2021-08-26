@@ -29,9 +29,11 @@ SIM_RECORD_VELOCITY = True
 #AUGMENTATIONS = ['BLUR']
 #AUG_BLUR_RANGE = (0.75, 0.75)
 
-#USE_EARLY_STOP = True           #would you like to stop the training if we see it's not improving fit?
-#EARLY_STOP_PATIENCE = 12         #how many epochs to wait before no improvement
-#MIN_DELTA = .0000001               #early stop will want this much loss change before calling it improved.
+# ---- train with 12/.0000001 ----
+# ---- train with 12/.0005 ----
+# ---- train with 5/.0005 ----
+EARLY_STOP_PATIENCE = 5         #how many epochs to wait before no improvement
+MIN_DELTA = .0005               #early stop will want this much loss change before calling it improved.
 
 # ==== orig ====
 

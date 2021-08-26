@@ -32,7 +32,7 @@ AI_LAUNCH_KEEP_ENABLED = True      # when False ( default) you will need to hit 
 WEB_INIT_MODE = "local"              # which control mode to start in. one of user|local_angle|local. Setting local will start in ai mode.
 
 # xp
-#AI_THROTTLE_MULT = 0.9              # this multiplier will scale every throttle value for all output from NN models
+AI_THROTTLE_MULT = 0.9              # this multiplier will scale every throttle value for all output from NN models
 
 # ==== orig ====
 
