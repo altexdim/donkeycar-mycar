@@ -345,7 +345,7 @@ python train.py --model models/mypilot_circuit_launch_19_2.h5 --tubs=data/tub_10
 python manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=myconfig-trnm-local.py
 
 for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=myconfig-trnm-local.py --type=linear 2>&1 | grep -i 'lap_number\|Keras' ; done
->>> stable, not fastest
+>>> stable, not fastest, 0/10 CRASH, 0/10 BAD
 
 INFO:donkeycar.parts.keras:Created KerasLinear with interpreter: KerasInterpreter
 INFO:donkeycar.parts.keras:Loading model models/mypilot_circuit_launch_19_2.h5
@@ -1251,7 +1251,7 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 
 
 for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_52.h5 --myconfig=myconfig-trnm-local-0_9.py 2>&1 | grep -i 'lap_number\|Keras' ; done
->>> stable, good, not fastest, can recover???
+>>> stable, good, not fastest, can recover???, 0/10 CRASH, 0/10 BAD
 
 INFO:donkeycar.parts.keras:Created KerasLinear with interpreter: KerasInterpreter
 INFO:donkeycar.parts.keras:Loading model models/mypilot_circuit_launch_52.h5
@@ -1992,9 +1992,11 @@ data/tub_138_21-08-24_fast\
  --type=imu
 
 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu
->>> goood, very stable, not fastest
+>>> goood, very stable, not fastest,
 
 for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|Keras' ; done
+>>> good, very stable, not fastest, 0/10 bad, 0/10 crash
+
 INFO:donkeycar.parts.keras:Created KerasIMU with interpreter: KerasInterpreter
 INFO:donkeycar.vehicle:Adding part KerasIMU.
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
@@ -2068,7 +2070,7 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 
 
 for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|Keras' ; done
->>> stable, not fastest
+>>> stable, not fastest, 0/10 bad, 0/10 crash
 
 INFO:donkeycar.parts.keras:Created KerasIMU with interpreter: KerasInterpreter
 INFO:donkeycar.parts.keras:Loading model models/mypilot_circuit_launch_77.h5
@@ -2152,7 +2154,7 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 |      KerasIMU      | 32.83 | 4.90 | 7.02 | 5.96 | 9.51 | 24.83 | 31.72 |
 
 
-DONKEYCAR_CFG_MAX_LOOPS=66000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|KerasIMU'
+DONKEYCAR_CFG_MAX_LOOPS=66000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|Keras'
 
 -----------------------------------------------------------------------------------
 
