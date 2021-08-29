@@ -24,14 +24,18 @@ CONTROLLER_TYPE = 'ps4'            #(ps3|ps4|xbox|nimbus|wiiu|F710|rc3|MM1|custo
 
 SIM_RECORD_LOCATION = True
 SIM_RECORD_VELOCITY = True
+SIM_RECORD_GYROACCEL = True
 
 #test
-#AUGMENTATIONS = ['BLUR']
-#AUG_BLUR_RANGE = (0.75, 0.75)
+# AUGMENTATIONS = ['CUSTOM']
+# AUGMENTATIONS = ['BLUR']
+# AUG_BLUR_RANGE = (0.75, 0.75)
 
 # ---- train with 12/.0000001 ----
 # ---- train with 12/.0005 ----
 # ---- train with 5/.0005 ----
+#EARLY_STOP_PATIENCE = 12         #how many epochs to wait before no improvement
+#MIN_DELTA = .0000001               #early stop will want this much loss change before calling it improved.
 EARLY_STOP_PATIENCE = 5         #how many epochs to wait before no improvement
 MIN_DELTA = .0005               #early stop will want this much loss change before calling it improved.
 
