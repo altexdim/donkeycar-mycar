@@ -2297,7 +2297,7 @@ docker run -it --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/pro
 ssh -T testuser@localhost -- -c start_container -t v12 -r "'cd /root/mycar; export DONKEYCAR_CFG_WEB_INIT_MODE=\"\\\\\"user\\\\\"\"; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu'"
 
 # start docker locally via ssh
-ssh -T testuser@localhost -- -c start_container -t v13 -r "'cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal-user.py --type=imu'"
+ssh -T testuser@localhost -- -c start_container -t v13 -r "'cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu'"
 
 # run a car docker locally via ssh
 ssh -T testuser@localhost -- -c change_driving_mode -m local
