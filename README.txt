@@ -1830,8 +1830,6 @@ data/tub_138_21-08-24_fast\
 imu(speed), 5/.0005, all best data + left/right/mid
 --------------------------------------------------------------
 
-TODO
-
 python train.py\
  --model models/mypilot_circuit_launch_90.h5\
  --tubs=\
@@ -1845,6 +1843,33 @@ data/tub_146_21-08-27_leftlane,\
 data/tub_145_21-08-27_rightlane\
  --type=imu
 
+python manage.py drive --model models/mypilot_circuit_launch_90.h5 --myconfig=myconfig-trnm-local.py --type=imu
+
+for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_90.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+>>> not bad, adaptive, has weaknessess, 0/10 CRASH, 0/10 LOOP, 1/10 CONE, L1:26-38, L3:82-96
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=96.28 lap_time=30.82
+|      KerasIMU      | 32.69 | 4.88 | 6.86 | 5.84 | 8.98 | 26.17 | 32.13 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.91 lap_time=27.43
+|      KerasIMU      | 32.76 | 4.83 | 6.88 | 5.94 | 9.17 | 19.82 | 30.63 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.67 lap_time=26.97
+|      KerasIMU      | 33.36 | 4.94 | 6.72 | 5.75 | 8.68 | 23.52 | 32.40 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=87.72 lap_time=26.78
+|      KerasIMU      | 33.74 | 4.95 | 6.83 | 5.92 | 8.70 | 23.59 | 32.36 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.37 lap_time=25.89
+|      KerasIMU      | 33.43 | 4.87 | 6.87 | 5.87 | 9.29 | 24.71 | 30.82 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.56 lap_time=28.36
+|      KerasIMU      | 32.81 | 4.91 | 6.88 | 5.85 | 9.10 | 25.86 | 31.49 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.77 lap_time=26.40
+|      KerasIMU      | 33.73 | 4.94 | 6.92 | 5.93 | 8.95 | 25.29 | 31.06 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=94.14 lap_time=31.40
+|      KerasIMU      | 33.16 | 4.87 | 7.11 | 6.05 | 9.59 | 24.49 | 32.43 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=87.32 lap_time=26.70
+|      KerasIMU      | 31.70 | 4.87 | 7.10 | 5.98 | 9.60 | 22.47 | 30.59 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.68 lap_time=27.47
+|      KerasIMU      | 31.21 | 4.91 | 7.09 | 5.85 | 9.80 | 25.61 | 31.04 |
+
 
 =============================================================
 best models I have atm
@@ -1852,6 +1877,7 @@ best models I have atm
 
 ----------------
 good data 60hz (6 same images in a row), linear, 5/.0005
+1. good for group staging
 ----------------
 python train.py --model models/mypilot_circuit_launch_19_2.h5 --tubs=data/tub_10_fast_nolat,data/tub_11_fast_nolat
 
@@ -1859,6 +1885,7 @@ for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --
 
 >>> stable, not fastest, 0/10 CRASH, 0/10 LOOP, [1L:27-30, 3L:84-85]
 >>> stable, not fastest, 0/10 CRASH, 0/10 LOOP, [1L:26-30, 3L:83-86]
+>>> -- TFL: 1/10 CRASH, L3:84-88, L1:27-30
 
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.69 lap_time=27.22
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.40 lap_time=27.75
@@ -1885,7 +1912,7 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 
 for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_19_2.tflite --myconfig=myconfig-trnm-local.py --type=tflite_linear 2>&1 | grep -i 'lap_number\|  Keras' ; done
 
->>> 1/10 CRASH, L3:84-88, L1:27-30
+>>> TFL: 1/10 CRASH, L3:84-88, L1:27-30
 
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.27 lap_time=28.14
 |    KerasLinear     | 11.25 | 1.40 | 2.91 | 2.10 | 5.18 | 10.58 | 11.10 |
@@ -1907,7 +1934,8 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 |    KerasLinear     | 11.80 | 1.40 | 2.75 | 2.02 | 4.50 | 10.32 | 11.10 |
 
 -----------------
-memory, all good data tubs, 5/.0005
+-- memory, all good data tubs, 5/.0005
+2. too many crashes
 -----------------
 
 python train.py --model models/mypilot_circuit_launch_31.h5 --tubs=data/tub_70_fast,data/tub_134_21-08-24_fast,data/tub_135_21-08-24_fast,data/tub_137_21-08-24_fast,data/tub_138_21-08-24_fast --type=memory
@@ -1938,17 +1966,18 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 
 -------------------------------
 best data, linear, 12/.0000001, throttle=90%
+3. too many crashes, but the fastest! maybe good for finals if there's a risk of loosing with a slower car
 -------------------------------
 
 python train.py\
  --model models/mypilot_circuit_launch_54.h5\
  --tubs=data/tub_70_fast,data/tub_134_21-08-24_fast,data/tub_135_21-08-24_fast,data/tub_137_21-08-24_fast,data/tub_138_21-08-24_fast
 
-for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-local-0_9.py 2>&1 | grep -i 'lap_number\|Keras' ; done
+for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-local-0_9.py 2>&1 | grep -i 'lap_number\|  Keras' ; done
 
 >>> very good, the fastest (one weakness - 2nd turn - slightly hit the wall on the right; 1/10 LOOP), L1:25-28 L3:80-82
 >>> 2/10 CRASH, L3:80-82, L1:25-29
->>> TFL: 2/10 CRASH, L3:79-81, L1:25-28
+>>> -- TFL: 2/10 CRASH, L3:79-81, L1:25-28
 
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.31 lap_time=26.13
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=80.70 lap_time=26.62
@@ -1988,8 +2017,44 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.16 lap_time=26.05
 |    KerasLinear     | 11.45 | 1.40 | 2.99 | 2.14 | 6.55 | 10.62 | 11.19 |
 
+DONKEYCAR_CFG_MAX_LOOPS=60000 python manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-local-0_9.py 2>&1 | grep -i 'lap_number\|  Keras'
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.13 lap_time=29.13
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.36 lap_time=26.23
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.27 lap_time=25.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=4 total_time=107.97 lap_time=26.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=5 total_time=134.08 lap_time=26.11
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=6 total_time=160.41 lap_time=26.34
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=7 total_time=186.86 lap_time=26.45
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=8 total_time=212.91 lap_time=26.05
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=9 total_time=239.17 lap_time=26.26
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=10 total_time=265.82 lap_time=26.65
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=11 total_time=291.97 lap_time=26.15
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=12 total_time=318.67 lap_time=26.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=13 total_time=344.77 lap_time=26.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=14 total_time=370.83 lap_time=26.06
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=15 total_time=396.90 lap_time=26.06
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=16 total_time=423.53 lap_time=26.63
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=17 total_time=449.47 lap_time=25.93
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=18 total_time=475.53 lap_time=26.07
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=19 total_time=502.20 lap_time=26.67
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=20 total_time=528.81 lap_time=26.61
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=21 total_time=555.07 lap_time=26.27
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=22 total_time=581.27 lap_time=26.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=23 total_time=607.83 lap_time=26.55
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=24 total_time=634.20 lap_time=26.37
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=25 total_time=660.16 lap_time=25.97
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=26 total_time=686.56 lap_time=26.39
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=27 total_time=712.67 lap_time=26.11
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=28 total_time=739.12 lap_time=26.45
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=29 total_time=765.14 lap_time=26.02
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=30 total_time=791.01 lap_time=25.88
+-- CRASH (S-Cone undershoot)
+
+
 -------------------------------
-all data good+soft+hard recovery, linear, 5/.0005, throttle=90%
+-- all data good+soft+hard recovery, linear, 5/.0005, throttle=90%
+4. too many crashes, but can recover, fun for destruction derby
 -------------------------------
 python train.py\
  --model models/mypilot_circuit_launch_52.h5\
@@ -2024,13 +2089,14 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 
 -----------------
 imu (speed), best data, 5/.0005
+5. the best overall
 -----------------
 python train.py\
  --model models/mypilot_circuit_launch_77.h5\
  --tubs=data/tub_70_fast,data/tub_134_21-08-24_fast,data/tub_135_21-08-24_fast,data/tub_137_21-08-24_fast,data/tub_138_21-08-24_fast\
  --type=imu
 
-for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|Keras' ; done
+for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|  Keras' ; done
 
 >>> stable, not fastest, 0/10 bad, 0/10 crash, (once I saw a crash on 4th lap), L3:82-84, L1:26-29
 >>> 0/10 bad, 0/10 crash , L3:83-85, L1:26-29
@@ -2083,6 +2149,110 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.35 lap_time=27.27
 |      KerasIMU      | 11.77 | 1.42 | 2.92 | 2.04 | 6.54 | 10.27 | 11.08 |
 
+
+(donkey) altex@Altex-Home-PC:~/projects/mycar$ DONKEYCAR_CFG_MAX_LOOPS=60000 python manage.py drive --model models/mypilot_circuit_launch_77.tflite --myconfig=myconfig-trnm-local.py --type=tflite_imu 2>&1 | grep -i 'lap_number\|  Keras'
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.88 lap_time=28.88
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.70 lap_time=27.82
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.27 lap_time=27.57
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=4 total_time=111.02 lap_time=26.75
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=5 total_time=138.45 lap_time=27.43
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=6 total_time=165.29 lap_time=26.84
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=7 total_time=193.83 lap_time=28.54
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=8 total_time=221.43 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=9 total_time=248.31 lap_time=26.88
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=10 total_time=276.06 lap_time=27.75
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=11 total_time=303.32 lap_time=27.25
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=12 total_time=330.18 lap_time=26.87
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=13 total_time=357.56 lap_time=27.37
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=14 total_time=384.76 lap_time=27.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=15 total_time=411.78 lap_time=27.02
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=16 total_time=439.06 lap_time=27.28
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=17 total_time=466.33 lap_time=27.27
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=18 total_time=493.78 lap_time=27.46
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=19 total_time=521.03 lap_time=27.25
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=20 total_time=548.34 lap_time=27.31
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=21 total_time=575.51 lap_time=27.17
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=22 total_time=602.96 lap_time=27.45
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=23 total_time=629.98 lap_time=27.02
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=24 total_time=657.42 lap_time=27.44
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=25 total_time=684.96 lap_time=27.54
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=26 total_time=712.51 lap_time=27.55
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=27 total_time=739.54 lap_time=27.02
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=28 total_time=767.18 lap_time=27.64
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=29 total_time=794.62 lap_time=27.44
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=30 total_time=821.60 lap_time=26.98
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=31 total_time=850.30 lap_time=28.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=32 total_time=877.81 lap_time=27.51
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=33 total_time=905.04 lap_time=27.24
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=34 total_time=932.58 lap_time=27.54
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=35 total_time=960.10 lap_time=27.52
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=36 total_time=987.41 lap_time=27.31
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=37 total_time=1014.74 lap_time=27.34
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=38 total_time=1042.28 lap_time=27.54
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=39 total_time=1069.48 lap_time=27.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=40 total_time=1096.60 lap_time=27.12
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=41 total_time=1124.20 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=42 total_time=1151.29 lap_time=27.09
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=43 total_time=1178.78 lap_time=27.49
+-- CRASH
+
+(donkey) altex@Altex-Home-PC:~/projects/mycar$ DONKEYCAR_CFG_MAX_LOOPS=60000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|  Keras'
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.47 lap_time=29.47
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.96 lap_time=27.49
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.89 lap_time=26.93
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=4 total_time=110.81 lap_time=26.92
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=5 total_time=137.89 lap_time=27.08
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=6 total_time=165.14 lap_time=27.25
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=7 total_time=192.08 lap_time=26.94
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=8 total_time=219.85 lap_time=27.77
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=9 total_time=247.67 lap_time=27.82
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=10 total_time=274.87 lap_time=27.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=11 total_time=301.96 lap_time=27.09
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=12 total_time=329.42 lap_time=27.47
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=13 total_time=356.71 lap_time=27.29
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=14 total_time=383.73 lap_time=27.02
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=15 total_time=411.30 lap_time=27.57
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=16 total_time=438.25 lap_time=26.95
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=17 total_time=465.88 lap_time=27.64
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=18 total_time=492.80 lap_time=26.92
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=19 total_time=520.10 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=20 total_time=547.31 lap_time=27.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=21 total_time=574.90 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=22 total_time=602.12 lap_time=27.22
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=23 total_time=629.23 lap_time=27.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=24 total_time=656.45 lap_time=27.22
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=25 total_time=683.47 lap_time=27.01
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=26 total_time=710.57 lap_time=27.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=27 total_time=737.99 lap_time=27.42
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=28 total_time=765.07 lap_time=27.09
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=29 total_time=792.44 lap_time=27.37
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=30 total_time=820.32 lap_time=27.89
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=31 total_time=847.71 lap_time=27.39
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=32 total_time=875.36 lap_time=27.65
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=33 total_time=902.71 lap_time=27.35
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=34 total_time=929.90 lap_time=27.19
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=35 total_time=956.87 lap_time=26.97
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=36 total_time=983.95 lap_time=27.08
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=37 total_time=1011.37 lap_time=27.42
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=38 total_time=1037.80 lap_time=26.43
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=39 total_time=1065.14 lap_time=27.34
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=40 total_time=1091.86 lap_time=26.72
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=41 total_time=1119.05 lap_time=27.19
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=42 total_time=1146.48 lap_time=27.43
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=43 total_time=1173.55 lap_time=27.07
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=44 total_time=1200.70 lap_time=27.15
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=45 total_time=1228.02 lap_time=27.32
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=46 total_time=1255.29 lap_time=27.27
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=47 total_time=1282.86 lap_time=27.57
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=48 total_time=1309.73 lap_time=26.87
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=49 total_time=1337.18 lap_time=27.45
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=50 total_time=1364.38 lap_time=27.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=51 total_time=1391.83 lap_time=27.45
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=52 total_time=1418.32 lap_time=26.49
+-- CRASH
+
 ================================================================================================================
 TODO
 ----------------------------------------------------------------------------------------------------------------
@@ -2105,9 +2275,9 @@ TODO
 - 12/.0000001 overfits memory model, 5/.0005 is better
 - try different augmentations, not only blur/brightness
 - to check that model is stable enough - bash script
-   # for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|KerasIMU' ; done
+   # for ((i=1;i<=10;i++)); do DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu 2>&1 | grep -i 'lap_number\|  KerasIMU' ; done
 - to check that model is stable enough - bash script
-   # DONKEYCAR_CFG_MAX_LOOPS=66000 python manage.py drive | grep -i 'lap_number\|KerasIMU'
+   # DONKEYCAR_CFG_MAX_LOOPS=66000 python manage.py drive | grep -i 'lap_number\|  KerasIMU'
 
 ~~~~LEARNINGS~~~~
 - tflite is faster for inference, not accurate (2x faster on AVG)
