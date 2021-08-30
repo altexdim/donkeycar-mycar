@@ -2293,6 +2293,9 @@ docker run -it --rm --name "donkeysim_altex" --network=donkeycar --add-host=host
 # debug
 docker run -it --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/projects/donkeycar:/donkeycar -v /home/altex/projects/gym-donkeycar:/gym-donkeycar --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v12" bash -c "cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu"
 
+# change vars from env
+ssh -T testuser@localhost -- -c start_container -t v12 -r "'cd /root/mycar; export DONKEYCAR_CFG_WEB_INIT_MODE=\"\\\\\"user\\\\\"\"; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu'"
+
 ================================================================================================================
 TODO
 ----------------------------------------------------------------------------------------------------------------
