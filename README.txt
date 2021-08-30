@@ -2253,6 +2253,35 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=51 tota
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=52 total_time=1418.32 lap_time=26.49
 -- CRASH
 
+---
+docker
+---
+
+--- how to init ---
+
+docker-compose -f ./pln-docker-compose.yml up --build
+docker-compose -f ./pln-docker-compose.yml up
+docker push altexdim/donkeycar_race2:v2
+docker pull altexdim/donkeycar_race2:v2
+
+docker run -it --rm --network host -v "C:/donkeycar/projects/diyrobocar_docker_agent_pln/myrace":/root/myrace altexdim/donkeycar_race2:v1 bash -c "cd /root/myrace/ && python3 /root/myrace/manage.py drive --model /root/myrace/models/mypilot_circuit_launch_16.h5 --myconfig=myconfig-trnm-local.py"
+docker run -it --rm --network host -v "C:/donkeycar/projects/diyrobocar_docker_agent_pln/myrace":/root/myrace altexdim/donkeycar_race2:v2 bash -c "cd /root/myrace/ && python3 /root/myrace/manage.py drive --model /root/myrace/models/mypilot_circuit_launch_19.h5 --myconfig=myconfig-trnm-local.py"
+docker run -it --rm --network host altexdim/donkeycar_race2:v3 bash -c "cd /root/myrace/ && python3 /root/myrace/manage.py drive --model /root/myrace/models/mypilot_circuit_launch_19.h5 --myconfig=myconfig-trnm-local.py"
+docker run -it --rm --network host altexdim/donkeycar_race2:v2 bash -c "cd /root/myrace/ && python3 /root/myrace/manage.py drive --model /root/myrace/models/mypilot_circuit_launch_19.h5 --myconfig=myconfig-trnm-local.py"
+docker run -it --rm --network host altexdim/donkeycar_race2:v2
+docker run -it --rm --network host altexdim/donkeycar_race2:v2 bash -c "cd /root/myrace/ && python3 /root/myrace/manage.py drive --model /root/myrace/models/mypilot_circuit_launch_19.h5 --myconfig=myconfig-trnm.py"
+docker run -it --rm --network host -v "C:/donkeycar/projects/diyrobocar_docker_agent_pln/myrace":/root/myrace altexdim/donkeycar_race2:v3 bash -c "cd /root/myrace/ && python3 /root/myrace/test.py"
+
+--- how to update ---
+
+# update tag
+vim pln-docker-compose.yml
+# rebuild
+docker-compose -f ./pln-docker-compose.yml up --build --no-start
+
+docker run -it --rm --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "donkeycar_race2:v10" bash -c "cd /root/mycar && python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu"
+
+
 ================================================================================================================
 TODO
 ----------------------------------------------------------------------------------------------------------------
