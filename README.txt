@@ -2149,7 +2149,6 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.35 lap_time=27.27
 |      KerasIMU      | 11.77 | 1.42 | 2.92 | 2.04 | 6.54 | 10.27 | 11.08 |
 
-
 (donkey) altex@Altex-Home-PC:~/projects/mycar$ DONKEYCAR_CFG_MAX_LOOPS=60000 python manage.py drive --model models/mypilot_circuit_launch_77.tflite --myconfig=myconfig-trnm-local.py --type=tflite_imu 2>&1 | grep -i 'lap_number\|  Keras'
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.88 lap_time=28.88
@@ -2312,6 +2311,433 @@ ssh -T testuser@localhost -- -c change_drive_mode -m user
 
 # stop docker locally via ssh
 ssh -T testuser@localhost -- -c stop_container
+
+# --- test on real server ---
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_77.tflite --myconfig=myconfig-trnm.py --type=tflite_imu'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+4/10 CRASH, L1=27-29, L3=83-84
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=33.30 lap_time=33.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=60.60 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=87.50 lap_time=26.90
+>> CRASH
+|      KerasIMU      | 50.32 | 2.55 | 4.35 | 4.25 | 4.87 | 5.72 | 10.07 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.50 lap_time=29.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.00 lap_time=27.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.40 lap_time=27.40
+|      KerasIMU      |  9.11 | 3.02 | 4.42 | 4.39 | 4.90 | 5.68 |  7.77 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.00 lap_time=29.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.60 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.70 lap_time=28.10
+|      KerasIMU      | 46.99 | 3.25 | 4.43 | 4.35 | 4.97 | 5.70 | 18.81 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=40.80 lap_time=40.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=68.10 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=95.30 lap_time=27.20
+>> CRASH
+|      KerasIMU      | 30.42 | 3.14 | 4.39 | 4.35 | 4.88 | 5.73 |  8.17 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.80 lap_time=29.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.80 lap_time=27.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.30 lap_time=27.50
+|      KerasIMU      |  8.85 | 3.33 | 4.49 | 4.50 | 4.93 | 6.10 |  8.47 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.30 lap_time=29.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.50 lap_time=27.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.30 lap_time=26.80
+|      KerasIMU      | 52.04 | 3.15 | 4.38 | 4.36 | 4.83 | 5.55 |  8.97 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|      KerasIMU      | 22.23 | 2.95 | 4.28 | 4.14 | 4.79 | 5.68 |  9.12 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.90 lap_time=29.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.20 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.60 lap_time=27.40
+|      KerasIMU      | 54.47 | 3.18 | 4.39 | 4.33 | 4.88 | 5.59 |  9.27 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.00 lap_time=29.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.50 lap_time=27.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.70 lap_time=27.20
+|      KerasIMU      | 30.12 | 3.20 | 4.32 | 4.26 | 4.80 | 5.62 |  8.36 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|      KerasIMU      |  8.91 | 2.91 | 4.47 | 4.45 | 4.87 | 5.56 |  8.13 |
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm.py --type=imu'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+2/10 CRASH, L1=26-30, L3=83-85
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.00 lap_time=29.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.70 lap_time=27.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.20 lap_time=27.50
+|      KerasIMU      | 59.90 | 10.65 | 15.64 | 15.46 | 17.58 | 19.97 | 24.59 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.30 lap_time=29.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.30 lap_time=27.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.70 lap_time=27.40
+|      KerasIMU      | 62.58 | 11.06 | 15.43 | 15.19 | 17.39 | 19.54 | 58.80 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.80 lap_time=29.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.60 lap_time=26.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.80 lap_time=27.20
+|      KerasIMU      | 59.84 | 10.29 | 15.61 | 15.42 | 17.57 | 19.72 | 29.77 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.40 lap_time=30.40
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.80 lap_time=27.40
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.40 lap_time=27.60
+|      KerasIMU      | 57.00 | 11.45 | 15.73 | 15.51 | 17.70 | 20.33 | 22.59 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|      KerasIMU      | 64.56 | 10.60 | 15.56 | 15.31 | 17.45 | 19.79 | 63.71 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.00 lap_time=29.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.70 lap_time=27.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.00 lap_time=27.30
+|      KerasIMU      | 62.43 | 11.20 | 15.54 | 15.28 | 17.64 | 19.80 | 46.09 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.20 lap_time=29.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.50 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=83.60 lap_time=27.10
+|      KerasIMU      | 62.91 | 11.33 | 15.48 | 15.23 | 17.44 | 19.70 | 59.09 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.10 lap_time=30.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.30 lap_time=27.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.20 lap_time=27.90
+|      KerasIMU      | 63.05 | 10.10 | 15.79 | 15.55 | 17.84 | 20.05 | 58.56 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|      KerasIMU      | 61.22 | 9.93 | 15.91 | 15.71 | 17.71 | 20.20 | 59.24 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.10 lap_time=30.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.50 lap_time=27.40
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.90 lap_time=27.40
+|      KerasIMU      | 62.67 | 10.68 | 15.88 | 15.68 | 17.79 | 20.22 | 25.18 |
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_19_2.h5 --myconfig=myconfig-trnm.py --type=linear'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+2/10 CRASH, L1=27-30, L3=85-88
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.80 lap_time=29.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=59.90 lap_time=30.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=88.00 lap_time=28.10
+|    KerasLinear     | 168.34 | 7.39 | 12.43 | 12.11 | 14.03 | 16.01 | 57.22 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.70 lap_time=29.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.50 lap_time=28.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.90 lap_time=27.40
+|    KerasLinear     | 174.15 | 9.35 | 12.72 | 12.45 | 14.41 | 16.19 | 40.58 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.90 lap_time=29.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.50 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.80 lap_time=28.30
+|    KerasLinear     | 163.84 | 7.71 | 12.71 | 12.42 | 14.28 | 16.60 | 55.99 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.00 lap_time=30.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.50 lap_time=27.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.30 lap_time=27.80
+|    KerasLinear     | 152.13 | 7.99 | 12.56 | 12.33 | 14.16 | 16.06 | 44.53 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.50 lap_time=29.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.70 lap_time=28.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=86.00 lap_time=28.30
+|    KerasLinear     | 161.10 | 7.73 | 12.43 | 12.17 | 13.97 | 16.07 | 55.24 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.10 lap_time=30.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.20 lap_time=28.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.90 lap_time=27.70
+|    KerasLinear     | 176.71 | 8.23 | 12.45 | 12.11 | 14.09 | 15.76 | 54.64 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.80 lap_time=29.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.80 lap_time=28.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.40 lap_time=27.60
+|    KerasLinear     | 160.71 | 7.81 | 12.57 | 12.27 | 14.09 | 16.11 | 56.79 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.50 lap_time=29.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.10 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.30 lap_time=28.20
+|    KerasLinear     | 170.88 | 8.53 | 12.65 | 12.41 | 14.38 | 16.34 | 18.62 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.40 lap_time=29.40
+>> CRASH
+|    KerasLinear     | 163.29 | 7.56 | 12.66 | 12.33 | 14.25 | 16.20 | 56.95 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.70 lap_time=30.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.80 lap_time=27.10
+>> CRASH
+|    KerasLinear     | 174.10 | 8.91 | 12.73 | 12.47 | 14.34 | 16.29 | 56.66 |
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_19_2.tflite --myconfig=myconfig-trnm.py --type=tflite_linear'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+>>> 0/10 CRASH, L1=27-30, L3=84-88
+>>> 3/10 CRASH
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.20 lap_time=30.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.30 lap_time=28.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=87.00 lap_time=28.70
+|    KerasLinear     | 41.40 | 3.00 | 4.31 | 4.24 | 4.79 | 5.66 |  8.09 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.10 lap_time=30.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=59.40 lap_time=29.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=87.00 lap_time=27.60
+|    KerasLinear     | 49.04 | 2.71 | 4.38 | 4.30 | 4.96 | 5.70 |  8.45 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.50 lap_time=30.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.10 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=88.10 lap_time=30.00
+|    KerasLinear     | 10.69 | 2.74 | 4.51 | 4.43 | 5.05 | 5.74 |  8.61 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.30 lap_time=30.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.60 lap_time=28.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=86.60 lap_time=28.00
+|    KerasLinear     | 49.55 | 2.88 | 4.40 | 4.35 | 4.78 | 5.62 |  9.03 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.60 lap_time=29.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.40 lap_time=27.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.20 lap_time=27.80
+|    KerasLinear     | 51.03 | 3.03 | 4.51 | 4.41 | 4.94 | 5.63 | 34.88 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.00 lap_time=30.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.60 lap_time=28.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=87.90 lap_time=29.30
+|    KerasLinear     | 48.95 | 2.64 | 4.30 | 4.24 | 4.72 | 5.56 |  8.60 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.90 lap_time=29.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.70 lap_time=27.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.50 lap_time=27.80
+|    KerasLinear     | 52.16 | 2.74 | 4.45 | 4.35 | 4.79 | 5.72 | 46.09 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.60 lap_time=29.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.50 lap_time=27.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.50 lap_time=28.00
+|    KerasLinear     | 22.11 | 2.85 | 4.45 | 4.45 | 4.98 | 5.73 |  8.83 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.90 lap_time=29.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.80 lap_time=26.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.10 lap_time=27.30
+|    KerasLinear     |  8.72 | 3.12 | 4.50 | 4.48 | 4.84 | 5.72 |  8.59 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.30 lap_time=30.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.30 lap_time=28.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.70 lap_time=27.40
+|    KerasLinear     | 16.48 | 2.75 | 4.35 | 4.29 | 4.84 | 5.53 |  8.42 |
+
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-0_9.py --type=linear'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+>>> 0/10 CRASH, L1=25-31, L3=81-84
+>>> 3/10 CRASH
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=31.30 lap_time=31.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.90 lap_time=26.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.10 lap_time=26.20
+|    KerasLinear     | 163.72 | 7.65 | 12.46 | 12.11 | 14.10 | 16.20 | 57.94 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.90 lap_time=28.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.30 lap_time=26.40
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.70 lap_time=26.40
+|    KerasLinear     | 58.46 | 8.56 | 12.62 | 12.40 | 14.34 | 16.33 | 19.64 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.80 lap_time=28.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.70 lap_time=26.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.60 lap_time=26.90
+|    KerasLinear     | 143.95 | 8.99 | 12.55 | 12.25 | 14.26 | 16.12 | 34.11 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.60 lap_time=28.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.10 lap_time=26.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.30 lap_time=26.20
+|    KerasLinear     | 68.44  | 7.62 | 12.36 | 12.12 | 14.14 | 15.99 | 28.59 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.70 lap_time=28.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.60 lap_time=26.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.00 lap_time=26.40
+|    KerasLinear     | 152.31 | 7.85 | 12.40 | 12.18 | 14.11 | 16.04 | 23.01 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.10 lap_time=29.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.70 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=84.00 lap_time=27.30
+|    KerasLinear     | 176.32 | 8.18 | 12.62 | 12.27 | 14.34 | 16.15 | 61.40 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.20 lap_time=30.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.50 lap_time=26.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.40 lap_time=25.90
+|    KerasLinear     | 68.66 | 8.07 | 12.44 | 12.18 | 14.22 | 15.88 | 57.53 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.60 lap_time=29.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.60 lap_time=26.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.60 lap_time=26.00
+|    KerasLinear     | 161.85 | 7.77 | 12.60 | 12.28 | 14.23 | 16.51 | 55.72 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.10 lap_time=28.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.40 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.60 lap_time=26.20
+|    KerasLinear     | 60.08 | 8.42 | 12.59 | 12.38 | 14.31 | 16.29 | 21.82 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.50 lap_time=29.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.00 lap_time=26.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.10 lap_time=26.10
+|    KerasLinear     | 165.47 | 7.64 | 12.36 | 12.08 | 14.03 | 15.83 | 58.45 |
+
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.tflite --myconfig=myconfig-trnm-0_9.py --type=tflite_linear'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+>> 2/10 CRASH, L1=25-28, L3=80-81
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.20 lap_time=28.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.10 lap_time=25.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=80.20 lap_time=26.10
+|    KerasLinear     | 15.44 | 2.79 | 4.45 | 4.37 | 4.98 | 5.91 |  8.77 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.70 lap_time=28.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.00 lap_time=26.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.10 lap_time=26.10
+|    KerasLinear     |  8.91 | 3.11 | 4.44 | 4.45 | 4.90 | 5.67 |  8.51 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|    KerasLinear     | 10.94 | 3.28 | 4.34 | 4.30 | 4.74 | 5.43 |  8.09 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.00 lap_time=28.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.30 lap_time=26.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.00 lap_time=26.70
+|    KerasLinear     | 48.98 | 2.81 | 4.30 | 4.22 | 4.84 | 5.61 |  9.03 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=27.90 lap_time=27.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.70 lap_time=26.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.00 lap_time=26.30
+|    KerasLinear     |  9.20 | 3.05 | 4.36 | 4.32 | 4.91 | 5.57 |  8.80 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.70 lap_time=28.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.30 lap_time=26.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.60 lap_time=26.30
+|    KerasLinear     |  8.90 | 2.45 | 4.35 | 4.34 | 4.79 | 5.52 |  8.03 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=27.80 lap_time=27.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.10 lap_time=26.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=80.60 lap_time=26.50
+|    KerasLinear     |  8.73 | 2.73 | 4.51 | 4.45 | 4.91 | 5.79 |  8.67 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|    KerasLinear     |  8.86 | 2.64 | 4.38 | 4.34 | 4.78 | 5.63 |  8.50 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=27.60 lap_time=27.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.20 lap_time=26.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=80.40 lap_time=26.20
+|    KerasLinear     | 22.33 | 3.00 | 4.28 | 4.24 | 4.78 | 5.58 |  8.22 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.50 lap_time=28.50
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.20 lap_time=26.70
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.90 lap_time=26.70
+|    KerasLinear     | 48.03 | 3.22 | 4.42 | 4.41 | 4.86 | 5.68 |  8.59 |
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-0_9.py --type=linear'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+>>>... 3/10 CRASH
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.80 lap_time=28.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.00 lap_time=26.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.50 lap_time=26.50
+|    KerasLinear     | 160.10 | 9.23 | 12.69 | 12.43 | 14.47 | 16.45 | 53.62 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.00 lap_time=29.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.80 lap_time=26.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.50 lap_time=26.70
+|    KerasLinear     | 175.20 | 8.50 | 12.72 | 12.45 | 14.29 | 16.32 | 58.08 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=27.80 lap_time=27.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.00 lap_time=26.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=80.10 lap_time=26.10
+|    KerasLinear     | 164.65 | 7.28 | 12.72 | 12.43 | 14.51 | 16.57 | 30.48 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.10 lap_time=29.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.70 lap_time=26.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=82.10 lap_time=26.40
+|    KerasLinear     | 164.60 | 7.48 | 12.44 | 12.12 | 14.07 | 15.95 | 53.82 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.90 lap_time=28.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=55.80 lap_time=26.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=81.80 lap_time=26.00
+|    KerasLinear     | 169.79 | 8.36 | 12.39 | 12.10 | 14.10 | 16.33 | 59.26 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.40 lap_time=28.40
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.70 lap_time=26.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=80.70 lap_time=26.00
+|    KerasLinear     | 171.68 | 8.15 | 12.62 | 12.33 | 14.23 | 16.15 | 61.92 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=28.20 lap_time=28.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=54.30 lap_time=26.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=80.50 lap_time=26.20
+|    KerasLinear     | 168.64 | 7.79 | 12.49 | 12.26 | 14.10 | 16.03 | 57.47 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=41.60 lap_time=41.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=67.70 lap_time=26.10
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=94.20 lap_time=26.50
+>> CRASH
+|    KerasLinear     | 186.68 | 8.30 | 12.54 | 12.21 | 14.25 | 16.09 | 57.36 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|    KerasLinear     | 178.93 | 8.71 | 12.66 | 12.35 | 14.35 | 16.49 | 31.69 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|    KerasLinear     | 173.56 | 7.88 | 12.70 | 12.43 | 14.39 | 16.41 | 20.19 |
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_19_2.tflite --myconfig=myconfig-trnm.py --type=tflite_linear'" 2>&1 | grep -i 'lap_number\|  Keras' ; done
+
+>>>... 3/10 CRASH
+
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.90 lap_time=29.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.70 lap_time=27.80
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=86.20 lap_time=28.50
+|    KerasLinear     | 51.03 | 3.22 | 4.39 | 4.41 | 4.83 | 5.58 |  8.57 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.90 lap_time=30.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.90 lap_time=28.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=87.00 lap_time=28.10
+|    KerasLinear     |  8.94 | 2.95 | 4.34 | 4.31 | 4.82 | 5.42 |  8.61 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.20 lap_time=30.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.60 lap_time=27.40
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=86.00 lap_time=28.40
+|    KerasLinear     |  8.66 | 2.76 | 4.25 | 4.21 | 4.74 | 5.62 |  7.42 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.30 lap_time=30.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=58.20 lap_time=27.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.10 lap_time=26.90
+|    KerasLinear     |  9.03 | 3.01 | 4.39 | 4.36 | 4.86 | 5.68 |  8.52 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.00 lap_time=30.00
+>> CRASH
+|    KerasLinear     | 45.41 | 2.85 | 4.34 | 4.28 | 4.81 | 5.50 | 10.16 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|    KerasLinear     | 50.26 | 2.90 | 4.44 | 4.43 | 4.92 | 5.81 |  8.65 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.20 lap_time=30.20
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=57.50 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.50 lap_time=28.00
+|    KerasLinear     |  8.90 | 3.12 | 4.31 | 4.29 | 4.78 | 5.55 |  8.62 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=29.60 lap_time=29.60
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=56.90 lap_time=27.30
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=85.00 lap_time=28.10
+|    KerasLinear     | 47.03 | 2.95 | 4.36 | 4.30 | 4.80 | 5.59 |  8.94 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=1 total_time=30.40 lap_time=30.40
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=2 total_time=59.30 lap_time=28.90
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=3 total_time=88.80 lap_time=29.50
+|    KerasLinear     |  9.73 | 3.09 | 4.35 | 4.30 | 4.82 | 5.57 |  8.39 |
+INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total_time=0.00 lap_time=0.00
+>> CRASH
+|    KerasLinear     |  8.65 | 3.15 | 4.53 | 4.50 | 4.94 | 5.73 |  8.37 |
 
 ================================================================================================================
 TODO
