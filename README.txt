@@ -2739,6 +2739,52 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=0 total
 >> CRASH
 |    KerasLinear     |  8.65 | 3.15 | 4.53 | 4.50 | 4.94 | 5.73 |  8.37 |
 
+
+DONKEYCAR_CFG_MAX_LOOPS=2000 python manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-local.py --type=imu
+
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; sed -i "s/max_loop_count=cfg.MAX_LOOPS/max_loop_count=cfg.MAX_LOOPS,verbose=True/g" manage.py; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm.py --type=linear'"
+
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; sed -i "s/max_loop_count=cfg.MAX_LOOPS/max_loop_count=cfg.MAX_LOOPS,verbose=True/g" manage.py; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-0_9.py --type=linear'" 2>&1 | grep 'jitter\|Keras'
+INFO:donkeycar.parts.keras:Created KerasLinear with interpreter: KerasInterpreter
+INFO:donkeycar.vehicle:Adding part KerasLinear.
+INFO:donkeycar.vehicle:WARN::Vehicle: jitter violation in vehicle loop with    8ms
+INFO:donkeycar.vehicle:WARN::Vehicle: jitter violation in vehicle loop with  125ms
+INFO:donkeycar.vehicle:WARN::Vehicle: jitter violation in vehicle loop with   12ms
+|    KerasLinear     | 172.45 | 9.06 | 13.34 | 12.23 | 13.73 | 17.00 | 149.69 |
+|    KerasLinear     | 172.45 | 9.06 | 12.79 | 12.19 | 13.79 | 15.73 | 126.58 |
+|    KerasLinear     | 172.45 | 9.06 | 12.77 | 12.22 | 14.04 | 16.79 | 103.48 |
+INFO:donkeycar.vehicle:WARN::Vehicle: jitter violation in vehicle loop with   11ms
+|    KerasLinear     | 172.45 | 9.06 | 12.83 | 12.30 | 14.26 | 17.02 | 81.99 |
+|    KerasLinear     | 172.45 | 9.06 | 12.79 | 12.32 | 14.27 | 16.79 | 59.29 |
+|    KerasLinear     | 172.45 | 9.06 | 12.76 | 12.34 | 14.27 | 16.78 | 58.55 |
+|    KerasLinear     | 172.45 | 9.06 | 12.76 | 12.38 | 14.34 | 16.57 | 58.14 |
+|    KerasLinear     | 172.45 | 9.06 | 12.74 | 12.39 | 14.30 | 16.45 | 57.73 |
+|    KerasLinear     | 172.45 | 9.06 | 12.74 | 12.40 | 14.33 | 16.45 | 57.33 |
+INFO:donkeycar.vehicle:WARN::Vehicle: jitter violation in vehicle loop with   10ms
+|    KerasLinear     | 172.45 | 9.06 | 12.72 | 12.40 | 14.31 | 16.45 | 56.92 |
+|    KerasLinear     | 172.45 | 9.06 | 12.72 | 12.40 | 14.31 | 16.45 | 56.92 |
+
+
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; sed -i "s/max_loop_count=cfg.MAX_LOOPS/max_loop_count=cfg.MAX_LOOPS,verbose=True/g" manage.py; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.tflite --myconfig=myconfig-trnm-0_9.py --type=tflite_linear'" 2>&1 | grep 'jitter\|Keras'
+INFO:donkeycar.parts.keras:Created KerasLinear with interpreter: TfLite
+INFO:donkeycar.vehicle:Adding part KerasLinear.
+|    KerasLinear     | 5.84 | 3.30 | 3.96 | 3.93 | 4.19 | 4.78 |  5.64 |
+INFO:donkeycar.vehicle:WARN::Vehicle: jitter violation in vehicle loop with    4ms
+|    KerasLinear     | 51.64 | 3.09 | 4.11 | 3.94 | 4.40 | 4.85 | 34.31 |
+|    KerasLinear     | 51.64 | 3.09 | 4.20 | 4.02 | 4.62 | 5.09 | 25.59 |
+|    KerasLinear     | 51.64 | 3.09 | 4.27 | 4.11 | 4.70 | 5.33 | 19.71 |
+|    KerasLinear     | 51.64 | 2.46 | 4.27 | 4.16 | 4.69 | 5.27 | 11.70 |
+|    KerasLinear     | 51.64 | 2.46 | 4.31 | 4.21 | 4.79 | 5.54 | 10.93 |
+|    KerasLinear     | 51.64 | 2.46 | 4.33 | 4.24 | 4.79 | 5.54 | 10.42 |
+|    KerasLinear     | 51.64 | 2.46 | 4.37 | 4.30 | 4.85 | 5.59 | 10.51 |
+|    KerasLinear     | 51.64 | 2.46 | 4.41 | 4.36 | 4.92 | 5.64 | 10.15 |
+|    KerasLinear     | 51.64 | 2.46 | 4.43 | 4.38 | 4.92 | 5.64 |  9.79 |
+|    KerasLinear     | 51.64 | 2.46 | 4.43 | 4.38 | 4.92 | 5.64 |  9.79 |
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; sed -i "s/max_loop_count=cfg.MAX_LOOPS/max_loop_count=cfg.MAX_LOOPS,verbose=True/g" manage.py; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm.py --type=imu'" 2>&1 | grep 'jitter\|  Keras\|lap_number' ; done
+
+for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; sed -i "s/max_loop_count=cfg.MAX_LOOPS/max_loop_count=cfg.MAX_LOOPS,verbose=True/g" manage.py; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_77.tflite --myconfig=myconfig-trnm.py --type=tflite_imu'" 2>&1 | grep 'jitter\|  Keras\|lap_number' ; done
+
 ================================================================================================================
 TODO
 ----------------------------------------------------------------------------------------------------------------
