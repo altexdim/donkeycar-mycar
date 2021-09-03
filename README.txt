@@ -3470,6 +3470,104 @@ for ((i=1;i<=10;i++)); do ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- 
 
 >>> NO, hit a wall on 2nd turn
 
+------------------------------------------------
+--- debug docker nvidia gpu inside container ---
+------------------------------------------------
+
+diff --git a/agent_pln.Dockerfile b/agent_pln.Dockerfile
+@@ -1,5 +1,6 @@
+-FROM ubuntu:bionic
++FROM nvidia/cuda:11.2.1-base-ubuntu18.04
+
+diff --git a/pln-docker-compose.yml b/pln-docker-compose.yml
+@@ -52,7 +52,7 @@ services:
+-    image: altexdim/donkeycar_race2:v13
++    image: altexdim/donkeycar_race2:v13gpu
+
+
+docker run -it --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/projects/donkeycar:/donkeycar -v /home/altex/projects/gym-donkeycar:/gym-donkeycar --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13" bash -c "cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu"
+
+docker run -it --rm --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13gpu" bash -c "cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu"
+
+docker run -it --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/projects/donkeycar:/donkeycar -v /home/altex/projects/gym-donkeycar:/gym-donkeycar --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13gpu" bash -c "cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu"
+
+docker run -it --gpus all --rm --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13gpu" bash -c "cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu"
+
+docker run -it --gpus all --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/projects/donkeycar:/donkeycar -v /home/altex/projects/gym-donkeycar:/gym-donkeycar --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13gpu" bash -c "cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_77.h5 --myconfig=myconfig-trnm-dockerlocal.py --type=imu"
+
+
+docker run -it --gpus all --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/projects/donkeycar:/donkeycar -v /home/altex/projects/gym-donkeycar:/gym-donkeycar --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13gpu" bash
+
+# --gpus all 
+# --gpus all --runtime=nvidia
+
+# apt-get install nvidia-docker2
+# --runtime=nvidia (https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#install-guide)
+
+# import tensorflow as tf
+# print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+
+# import tensorflow as tf
+# print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+
+apt-get update
+apt-get install cuda
+apt-get install nvidia-cuda-toolkit
+
+--runtime=nvidia
+nvidia-smi
+find /usr/ -name 'libcuda.so.1'
+LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
+
+---
+    # dependecies 
+    sudo apt install cuda-cudart-11-0
+    sudo apt install libcufft-11-2
+    sudo apt install libcurand-11-2
+    sudo apt install libcusolver-11-0 # installs so.10, see below 
+    sudo apt install libcudnn8
+    sudo apt install libcublas-11-0
+    sudo apt install libcusparse-11-0
+
+    # add this path to LD_LIBRARY_PATH in .bashrc as in previous posts
+    /usr/local/cuda-11.0/targets/x86_64-linux/lib/
+
+    # in the /usr/... path, run:
+    sudo ln -s libcusolver.so.10.6.0.245 libcusolver.so.11 
+
+---
+root@3ed196a45140:~/mycar# history | grep apt
+   14  apt install cuda-cudart-11-0
+   15  apt install libcufft10
+   16  apt install libcufft11
+   17  apt install libcufft
+   18  apt install libcurand10
+   19  apt install libcurand11
+   20  apt install libcusolver-11-0
+   21  apt install libcudnn8
+   22  apt install libcublas-11-0
+   23  apt install libcusparse-11-0
+   58  apt install libcufft11
+   59  apt install libcufft10
+   60  apt install libcufft
+   61  apt install libcufft.so.10
+   62  apt install libcufft-11-2
+   63  apt install libcurand.so.10
+   64  apt install libcurand-11-2
+root@3ed196a45140:~/mycar# history | grep PATH
+   12  export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-11.2/targets/x86_64-linux/lib
+   27  export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-11.2/targets/x86_64-linux/lib
+   34  export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-11.0/targets/x86_64-linux/lib
+   40  export LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-11.0/targets/x86_64-linux/lib:/usr/local/cuda-11.2/targets/x86_64-linux/lib
+   75  export PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/mycar # ptxas
+
+   52  cd /usr/local/cuda-11.0/targets/x86_64-linux/lib/
+   54  ln -s libcusolver.so.10.6.0.245 libcusolver.so.11
+
+
+docker run -it --gpus all --runtime=nvidia --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/projects/donkeycar:/donkeycar -v /home/altex/projects/gym-donkeycar:/gym-donkeycar --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13gpu" bash
+
+---
 
 ================================================================================================================
 TODO
