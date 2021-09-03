@@ -735,6 +735,8 @@ if __name__ == '__main__':
         model_type = args['--type']
         camera_type = args['--camera']
 
+        # TODO: if you want enable GPU support for inference then uncomment the code block below
+        #
         # import tensorflow
         #
         # config = tensorflow.compat.v1.ConfigProto()
