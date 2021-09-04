@@ -3578,7 +3578,8 @@ docker run -it --gpus all --runtime=nvidia --rm -v /home/altex/projects/mycar:/r
 export PATH=/root/mycar:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 # (ptxas, nvcc)
 apt install nvidia-cuda-toolkit 
-
+# test gpu
+python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-dockerlocal-0_9.py --type=linear
 
 ================================================================================================================
 For the tournament
