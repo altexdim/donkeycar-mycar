@@ -3536,6 +3536,11 @@ LD_LIBRARY_PATH=/usr/local/nvidia/lib:/usr/local/nvidia/lib64
     sudo ln -s libcusolver.so.10.6.0.245 libcusolver.so.11 
 
 ---
+# work
+cuda-cudart-11-0 libcusolver-11-0 libcudnn8 libcublas-11-0 libcusparse-11-0 libcufft-11-2 libcurand-11-2
+# work 2
+cuda-cudart-11-4 libcusolver-11-4 libcudnn8 libcublas-11-4 libcusparse-11-4 libcufft-11-4 libcurand-11-4
+
 root@3ed196a45140:~/mycar# history | grep apt
    14  apt install cuda-cudart-11-0
    15  apt install libcufft10
@@ -3568,6 +3573,12 @@ root@3ed196a45140:~/mycar# history | grep PATH
 docker run -it --gpus all --runtime=nvidia --rm -v /home/altex/projects/mycar:/root/mycar -v /home/altex/projects/donkeycar:/donkeycar -v /home/altex/projects/gym-donkeycar:/gym-donkeycar --name "donkeysim_altex" --network=donkeycar --add-host=host.docker.internal:host-gateway -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v13gpu" bash
 
 ---
+
+# fix for ptxas
+export PATH=/root/mycar:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# (ptxas, nvcc)
+apt install nvidia-cuda-toolkit 
+
 
 ================================================================================================================
 For the tournament
