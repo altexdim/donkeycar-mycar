@@ -3570,6 +3570,19 @@ docker run -it --gpus all --runtime=nvidia --rm -v /home/altex/projects/mycar:/r
 ---
 
 ================================================================================================================
+For the tournament
+----------------------------------------------------------------------------------------------------------------
+
+--- run ---
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; python3 manage.py drive --model models/mypilot_circuit_launch_54.tflite --myconfig=myconfig-trnm-user-0_9.py --type=tflite_linear'"
+
+--- start ---
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c change_drive_mode -m local
+
+--- stop ---
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c stop_container
+
+================================================================================================================
 TODO
 ----------------------------------------------------------------------------------------------------------------
 
