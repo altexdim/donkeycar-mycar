@@ -3594,6 +3594,17 @@ ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c change_drive_mode -m lo
 --- stop ---
 ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c stop_container
 
+--- test: run with gpu ---
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13gpu -r "'cd /root/mycar; export PATH=/root/mycar:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-user-0_9.py --type=linear'"
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; export PATH=/root/mycar:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-user-0_9.py --type=linear'"
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13gpu -r "'cd /root/mycar; export PATH=/root/mycar:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-0_9.py --type=linear'"
+ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 -r "'cd /root/mycar; export PATH=/root/mycar:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin; DONKEYCAR_CFG_MAX_LOOPS=2000 python3 manage.py drive --model models/mypilot_circuit_launch_54.h5 --myconfig=myconfig-trnm-0_9.py --type=linear'"
+
+|    KerasLinear GPU    | 63.95  | 8.25 | 11.89 | 11.72 | 13.43 | 15.19 | 60.05 |
+|    KerasLinear CPU    | 52.23  | 9.29 | 12.47 | 12.26 | 14.24 | 16.14 | 18.14 |
+|    KerasLinear GPU    | 32.56  | 6.69 | 11.72 | 11.64 | 13.42 | 15.34 | 17.49 |
+|    KerasLinear CPU    | 166.44 | 9.06 | 12.57 | 12.26 | 14.22 | 16.18 | 63.43 |
+
 ================================================================================================================
 TODO
 ----------------------------------------------------------------------------------------------------------------
