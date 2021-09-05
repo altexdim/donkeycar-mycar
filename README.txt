@@ -3618,6 +3618,21 @@ TODO
 - drive 1 line + 2 line + mid line, then transfer model to race dataset
 - histogram
 - add fps counter on inference
+- change print to log output for cfg env, and for AiCatapult
+    from logging import getLogger
+    logger = logging.getLogger()
+    logger.info(f'Loaded')
+- add timestamp when crossing the line, for AiCatapult
+- to test camera changes - png, rotate, move up
+    GYM_CONF["cam_config"] = {}
+    GYM_CONF["cam_config"]["img_enc"] = "PNG"
+    GYM_CONF["cam_config"]["offset_y"] = "3.0"
+    GYM_CONF["cam_config"]["offset_z"] = "1.2"
+    GYM_CONF["cam_config"]["rot_x"] = "50.0"
+    GYM_CONF["cam_config"]["fov"] = "72"
+    GYM_CONF["cam_config"]["img_h"] = "96"
+    GYM_CONF["cam_config"]["img_w"] = "200"
+- Pull requests
 
 ~~~~IDEAS~~~~
 - try inference with GPU acceleration

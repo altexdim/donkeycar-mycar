@@ -10,10 +10,22 @@ GYM_CONF["country"] = "UK"
 GYM_CONF["bio"] = "More robots"
 GYM_CONF["frame_skip"] = 1
 
+### TODO: to test - dont crop and move camera up, rotate camera, change JPN->PNG
+GYM_CONF["cam_config"] = {}
+# FIXME: PNG doesn't work?
+GYM_CONF["cam_config"]["img_enc"] = "PNG"
+GYM_CONF["cam_config"]["offset_y"] = "3.0"
+GYM_CONF["cam_config"]["offset_z"] = "1.2"
+GYM_CONF["cam_config"]["rot_x"] = "50.0"
+GYM_CONF["cam_config"]["fov"] = "72"
+GYM_CONF["cam_config"]["img_h"] = "96"
+GYM_CONF["cam_config"]["img_w"] = "200"
+
 AUTO_CREATE_NEW_TUB = True     #create a new tub (tub_YY_MM_DD) directory when recording or append records to data directory directly
 
-TRANSFORMATIONS = ['CROP']
-ROI_CROP_TOP = 45               # the number of rows of pixels to ignore on the top of the image
+### TODO: to test - dont crop and move camera up, rotate camera, change JPN->PNG
+# TRANSFORMATIONS = ['CROP']
+# ROI_CROP_TOP = 45               # the number of rows of pixels to ignore on the top of the image
 CREATE_TF_LITE = False
 
 USE_JOYSTICK_AS_DEFAULT = True      #when starting the manage.py, when True, will not require a --js option to use the joystick
