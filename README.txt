@@ -3606,6 +3606,16 @@ ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c start_container -t v13 
 |    KerasLinear CPU    | 166.44 | 9.06 | 12.57 | 12.26 | 14.22 | 16.18 | 63.43 |
 
 ================================================================================================================
+3 Sep 2021: select new cam view; try the model with the new cam
+----------------------------------------------------------------------------------------------------------------
+python train.py \
+    --model models/mypilot_circuit_launch_100.h5 \
+    --tubs=data/tub_584_21-09-06_test_new_cam
+
+very bad model - maybe because of very bad data?
+why not create an ideal path, and collect data from it?
+
+================================================================================================================
 TODO
 ----------------------------------------------------------------------------------------------------------------
 

@@ -22,6 +22,8 @@ GYM_CONF["cam_config"]["rot_x"] = "50.0"
 GYM_CONF["cam_config"]["fov"] = "72"
 GYM_CONF["cam_config"]["img_h"] = "96"
 GYM_CONF["cam_config"]["img_w"] = "200"
+IMAGE_H = 96
+IMAGE_W = 200
 
 ### narrow but very clear
 # GYM_CONF["cam_config"]["offset_y"] = "3.0"
@@ -30,6 +32,8 @@ GYM_CONF["cam_config"]["img_w"] = "200"
 # GYM_CONF["cam_config"]["fov"] = "85"
 # GYM_CONF["cam_config"]["img_h"] = "120"
 # GYM_CONF["cam_config"]["img_w"] = "160"
+# IMAGE_H = 120
+# IMAGE_W = 160
 
 ### wide but nor very clear
 # GYM_CONF["cam_config"]["offset_y"] = "3.0"
@@ -38,6 +42,8 @@ GYM_CONF["cam_config"]["img_w"] = "200"
 # GYM_CONF["cam_config"]["fov"] = "72"
 # GYM_CONF["cam_config"]["img_h"] = "96"
 # GYM_CONF["cam_config"]["img_w"] = "200"
+# IMAGE_H = 96
+# IMAGE_W = 200
 
 AUTO_CREATE_NEW_TUB = True     #create a new tub (tub_YY_MM_DD) directory when recording or append records to data directory directly
 
