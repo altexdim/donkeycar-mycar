@@ -13,13 +13,31 @@ GYM_CONF["frame_skip"] = 1
 ### TODO: to test - dont crop and move camera up, rotate camera, change JPN->PNG
 GYM_CONF["cam_config"] = {}
 # FIXME: PNG doesn't work?
-GYM_CONF["cam_config"]["img_enc"] = "PNG"
+# GYM_CONF["cam_config"]["img_enc"] = "PNG"
+
+### wider and somewhat clearer
 GYM_CONF["cam_config"]["offset_y"] = "3.0"
-GYM_CONF["cam_config"]["offset_z"] = "1.2"
+GYM_CONF["cam_config"]["offset_z"] = "0.6"
 GYM_CONF["cam_config"]["rot_x"] = "50.0"
 GYM_CONF["cam_config"]["fov"] = "72"
 GYM_CONF["cam_config"]["img_h"] = "96"
 GYM_CONF["cam_config"]["img_w"] = "200"
+
+### narrow but very clear
+# GYM_CONF["cam_config"]["offset_y"] = "3.0"
+# GYM_CONF["cam_config"]["offset_z"] = "1.2"
+# GYM_CONF["cam_config"]["rot_x"] = "55.0"
+# GYM_CONF["cam_config"]["fov"] = "85"
+# GYM_CONF["cam_config"]["img_h"] = "120"
+# GYM_CONF["cam_config"]["img_w"] = "160"
+
+### wide but nor very clear
+# GYM_CONF["cam_config"]["offset_y"] = "3.0"
+# GYM_CONF["cam_config"]["offset_z"] = "0.5"
+# GYM_CONF["cam_config"]["rot_x"] = "48.0"
+# GYM_CONF["cam_config"]["fov"] = "72"
+# GYM_CONF["cam_config"]["img_h"] = "96"
+# GYM_CONF["cam_config"]["img_w"] = "200"
 
 AUTO_CREATE_NEW_TUB = True     #create a new tub (tub_YY_MM_DD) directory when recording or append records to data directory directly
 
