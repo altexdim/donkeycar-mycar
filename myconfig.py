@@ -9,6 +9,7 @@ GYM_CONF["racer_name"] = "Dmitry Ananyev"
 GYM_CONF["country"] = "UK"
 GYM_CONF["bio"] = "More robots"
 GYM_CONF["frame_skip"] = 1
+GYM_CONF["start_delay"] = 0.0
 
 ### TODO: to test - dont crop and move camera up, rotate camera, change JPN->PNG
 GYM_CONF["cam_config"] = {}
@@ -16,24 +17,34 @@ GYM_CONF["cam_config"] = {}
 # GYM_CONF["cam_config"]["img_enc"] = "PNG"
 
 ### wider and somewhat clearer
-GYM_CONF["cam_config"]["offset_y"] = "3.0"
-GYM_CONF["cam_config"]["offset_z"] = "0.6"
-GYM_CONF["cam_config"]["rot_x"] = "50.0"
-GYM_CONF["cam_config"]["fov"] = "72"
-GYM_CONF["cam_config"]["img_h"] = "96"
-GYM_CONF["cam_config"]["img_w"] = "200"
-IMAGE_H = 96
-IMAGE_W = 200
+#GYM_CONF["cam_config"]["offset_y"] = "3.0"
+#GYM_CONF["cam_config"]["offset_z"] = "0.6"
+#GYM_CONF["cam_config"]["rot_x"] = "50.0"
+#GYM_CONF["cam_config"]["fov"] = "72"
+#GYM_CONF["cam_config"]["img_h"] = "96"
+#GYM_CONF["cam_config"]["img_w"] = "200"
+#IMAGE_H = 96
+#IMAGE_W = 200
 
 ### narrow but very clear
 # GYM_CONF["cam_config"]["offset_y"] = "3.0"
-# GYM_CONF["cam_config"]["offset_z"] = "1.2"
+# GYM_CONF["cam_config"]["offset_z"] = "1.9"
 # GYM_CONF["cam_config"]["rot_x"] = "55.0"
 # GYM_CONF["cam_config"]["fov"] = "85"
 # GYM_CONF["cam_config"]["img_h"] = "120"
 # GYM_CONF["cam_config"]["img_w"] = "160"
 # IMAGE_H = 120
 # IMAGE_W = 160
+
+### not clear but can see a long distance forward
+GYM_CONF["cam_config"]["offset_y"] = "3.0" # default 0
+GYM_CONF["cam_config"]["offset_z"] = "1.7" # default 0
+GYM_CONF["cam_config"]["rot_x"] = "50.0" # default 0
+GYM_CONF["cam_config"]["fov"] = "90" # default 90
+GYM_CONF["cam_config"]["img_h"] = "120" # default 120
+GYM_CONF["cam_config"]["img_w"] = "160" # default 160
+IMAGE_H = 120 # default 120
+IMAGE_W = 160 # default 160
 
 ### wide but nor very clear
 # GYM_CONF["cam_config"]["offset_y"] = "3.0"
