@@ -3665,3 +3665,25 @@ TODO
 - video is not working with CROP
 - inference is not using GPU
 - simulation sometimes runs slow - slowing down PC, restart of simulation helps
+
+========================================
+27 Dec 2021: new track, new sim
+---------------------
+
+GYM_CONF["cam_config"]["offset_y"] = "3.0" # default 0
+GYM_CONF["cam_config"]["offset_z"] = "1.4" # default 0
+GYM_CONF["cam_config"]["rot_x"] = "45.0" # default 0
+GYM_CONF["cam_config"]["fov"] = "90" # default 90
+GYM_CONF["cam_config"]["img_h"] = "120" # default 120
+GYM_CONF["cam_config"]["img_w"] = "160" # default 160
+IMAGE_H = 120 # default 120
+IMAGE_W = 160 # default 160
+
+# collect data
+python manage.py drive
+# train
+python train.py --model models/mypilot_mountain_1.h5 --tubs=data/tub_1_good,data/tub_2_good,data/tub_3_good --type=linear
+# test manually
+python manage.py drive --model models/mypilot_mountain_1.h5 --type=linear
+# test automatically, tweak ai_launcher
+DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.1 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_1.h5 --type=linear

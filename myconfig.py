@@ -3,7 +3,7 @@
 DONKEY_GYM = True
 DONKEY_SIM_PATH = "remote" #"/home/tkramer/projects/sdsandbox/sdsim/build/DonkeySimLinux/donkey_sim.x86_64" when racing on virtual-race-league use "remote", or user "remote" when you want to start the sim manually first.
 SIM_HOST = "127.0.0.1"              # when racing on virtual-race-league use host "trainmydonkey.com"
-DONKEY_GYM_ENV_NAME = "donkey-circuit-launch-track-v0"
+DONKEY_GYM_ENV_NAME = "donkey-mountain-track-v0"
 GYM_CONF = { "body_style" : "car01", "body_rgb" : (255, 64, 0), "car_name" : "Dmitry Ananyev", "font_size" : 20} # body style(donkey|bare|car01) body rgb 0-255
 GYM_CONF["racer_name"] = "Dmitry Ananyev"
 GYM_CONF["country"] = "UK"
@@ -37,14 +37,26 @@ GYM_CONF["cam_config"] = {}
 # IMAGE_W = 160
 
 ### not clear but can see a long distance forward
+## experiment - better distance, especially for the mountain track 27-dec-2021
 GYM_CONF["cam_config"]["offset_y"] = "3.0" # default 0
-GYM_CONF["cam_config"]["offset_z"] = "1.7" # default 0
-GYM_CONF["cam_config"]["rot_x"] = "50.0" # default 0
+GYM_CONF["cam_config"]["offset_z"] = "1.4" # default 0
+GYM_CONF["cam_config"]["rot_x"] = "45.0" # default 0
 GYM_CONF["cam_config"]["fov"] = "90" # default 90
 GYM_CONF["cam_config"]["img_h"] = "120" # default 120
 GYM_CONF["cam_config"]["img_w"] = "160" # default 160
 IMAGE_H = 120 # default 120
 IMAGE_W = 160 # default 160
+
+### not clear but can see a long distance forward
+### -- good enough ---
+#GYM_CONF["cam_config"]["offset_y"] = "3.0" # default 0
+#GYM_CONF["cam_config"]["offset_z"] = "1.7" # default 0
+#GYM_CONF["cam_config"]["rot_x"] = "50.0" # default 0
+#GYM_CONF["cam_config"]["fov"] = "90" # default 90
+#GYM_CONF["cam_config"]["img_h"] = "120" # default 120
+#GYM_CONF["cam_config"]["img_w"] = "160" # default 160
+#IMAGE_H = 120 # default 120
+#IMAGE_W = 160 # default 160
 
 ### wide but nor very clear
 # GYM_CONF["cam_config"]["offset_y"] = "3.0"
