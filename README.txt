@@ -3687,3 +3687,4 @@ python train.py --model models/mypilot_mountain_1.h5 --tubs=data/tub_1_good,data
 python manage.py drive --model models/mypilot_mountain_1.h5 --type=linear
 # test automatically, tweak ai_launcher
 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.1 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_1.h5 --type=linear
+
