@@ -4,75 +4,43 @@ DONKEY_GYM = True
 DONKEY_SIM_PATH = "remote" #"/home/tkramer/projects/sdsandbox/sdsim/build/DonkeySimLinux/donkey_sim.x86_64" when racing on virtual-race-league use "remote", or user "remote" when you want to start the sim manually first.
 SIM_HOST = "127.0.0.1"              # when racing on virtual-race-league use host "trainmydonkey.com"
 DONKEY_GYM_ENV_NAME = "donkey-mountain-track-v0"
-GYM_CONF = { "body_style" : "car01", "body_rgb" : (255, 64, 0), "car_name" : "Dmitry Ananyev", "font_size" : 20} # body style(donkey|bare|car01) body rgb 0-255
-GYM_CONF["racer_name"] = "Dmitry Ananyev"
-GYM_CONF["country"] = "UK"
-GYM_CONF["bio"] = "More robots"
-GYM_CONF["frame_skip"] = 1
-GYM_CONF["start_delay"] = 0.0
+# body_style: donkey|bare|car01
+# body_rgb : 0-255
+GYM_CONF = {"body_style": "car01",
+            "body_rgb": (255, 64, 0),
+            "car_name": "Dmitry Ananyev",
+            "font_size": 20,
+            "racer_name": "Dmitry Ananyev",
+            "country": "UK",
+            "bio": "More robots",
+            "frame_skip": 1,
+            "start_delay": 0.0,
+            "lidar_config": {
+                "degPerSweepInc": "20.0",
+                "degAngDown": "5",
+                "degAngDelta": "-1.0",
+                "numSweepsLevels": "1",
+                "maxRange": "50.0",
+                "noise": "0.0",
+                "offset_x": "0.0",
+                "offset_y": "0.6",
+                "offset_z": "0.0",
+                "rot_x": "0.0"
+            },
+            "cam_config": {
+                "offset_y": "3.0",
+                "offset_z": "1.4",
+                "rot_x": "45.0",
+                "fov": "90",
+                "img_h": "120",
+                "img_w": "160"
+            }}
 
-### TODO: to test - dont crop and move camera up, rotate camera, change JPN->PNG
-GYM_CONF["cam_config"] = {}
-# FIXME: PNG doesn't work?
-# GYM_CONF["cam_config"]["img_enc"] = "PNG"
-
-### wider and somewhat clearer
-#GYM_CONF["cam_config"]["offset_y"] = "3.0"
-#GYM_CONF["cam_config"]["offset_z"] = "0.6"
-#GYM_CONF["cam_config"]["rot_x"] = "50.0"
-#GYM_CONF["cam_config"]["fov"] = "72"
-#GYM_CONF["cam_config"]["img_h"] = "96"
-#GYM_CONF["cam_config"]["img_w"] = "200"
-#IMAGE_H = 96
-#IMAGE_W = 200
-
-### narrow but very clear
-# GYM_CONF["cam_config"]["offset_y"] = "3.0"
-# GYM_CONF["cam_config"]["offset_z"] = "1.9"
-# GYM_CONF["cam_config"]["rot_x"] = "55.0"
-# GYM_CONF["cam_config"]["fov"] = "85"
-# GYM_CONF["cam_config"]["img_h"] = "120"
-# GYM_CONF["cam_config"]["img_w"] = "160"
-# IMAGE_H = 120
-# IMAGE_W = 160
-
-### not clear but can see a long distance forward
-## experiment - better distance, especially for the mountain track 27-dec-2021
-GYM_CONF["cam_config"]["offset_y"] = "3.0" # default 0
-GYM_CONF["cam_config"]["offset_z"] = "1.4" # default 0
-GYM_CONF["cam_config"]["rot_x"] = "45.0" # default 0
-GYM_CONF["cam_config"]["fov"] = "90" # default 90
-GYM_CONF["cam_config"]["img_h"] = "120" # default 120
-GYM_CONF["cam_config"]["img_w"] = "160" # default 160
 IMAGE_H = 120 # default 120
 IMAGE_W = 160 # default 160
 
-### not clear but can see a long distance forward
-### -- good enough ---
-#GYM_CONF["cam_config"]["offset_y"] = "3.0" # default 0
-#GYM_CONF["cam_config"]["offset_z"] = "1.7" # default 0
-#GYM_CONF["cam_config"]["rot_x"] = "50.0" # default 0
-#GYM_CONF["cam_config"]["fov"] = "90" # default 90
-#GYM_CONF["cam_config"]["img_h"] = "120" # default 120
-#GYM_CONF["cam_config"]["img_w"] = "160" # default 160
-#IMAGE_H = 120 # default 120
-#IMAGE_W = 160 # default 160
-
-### wide but nor very clear
-# GYM_CONF["cam_config"]["offset_y"] = "3.0"
-# GYM_CONF["cam_config"]["offset_z"] = "0.5"
-# GYM_CONF["cam_config"]["rot_x"] = "48.0"
-# GYM_CONF["cam_config"]["fov"] = "72"
-# GYM_CONF["cam_config"]["img_h"] = "96"
-# GYM_CONF["cam_config"]["img_w"] = "200"
-# IMAGE_H = 96
-# IMAGE_W = 200
-
 AUTO_CREATE_NEW_TUB = True     #create a new tub (tub_YY_MM_DD) directory when recording or append records to data directory directly
 
-### TODO: to test - dont crop and move camera up, rotate camera, change JPN->PNG
-# TRANSFORMATIONS = ['CROP']
-# ROI_CROP_TOP = 45               # the number of rows of pixels to ignore on the top of the image
 CREATE_TF_LITE = False
 
 USE_JOYSTICK_AS_DEFAULT = True      #when starting the manage.py, when True, will not require a --js option to use the joystick
@@ -84,6 +52,7 @@ CONTROLLER_TYPE = 'ps4'            #(ps3|ps4|xbox|nimbus|wiiu|F710|rc3|MM1|custo
 SIM_RECORD_LOCATION = True
 SIM_RECORD_VELOCITY = True
 SIM_RECORD_GYROACCEL = True
+SIM_RECORD_LIDAR = True
 
 #test
 # AUGMENTATIONS = ['CUSTOM']
