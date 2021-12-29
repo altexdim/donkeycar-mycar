@@ -514,10 +514,10 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
           outputs=['throttle', 'angle'])
 
     stuck_recovery = StuckRecovery(
-        recovery_duration=3.0,
-        recovery_throttle=-1.0,
+        recovery_duration=2.2,
+        recovery_throttle=-0.5,
         recovery_angle=0.0,
-        stuck_duration=1.0)
+        stuck_duration=0.5)
     V.add(stuck_recovery,
           inputs=['user/mode', 'throttle', 'angle', 'vel/vel_x', 'vel/vel_y', 'vel/vel_z'],
           outputs=['throttle', 'angle'])
