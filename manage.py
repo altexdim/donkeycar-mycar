@@ -519,7 +519,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
         recovery_angle=0.0,
         stuck_duration=0.5)
     V.add(stuck_recovery,
-          inputs=['user/mode', 'throttle', 'angle', 'vel/vel_x', 'vel/vel_y', 'vel/vel_z'],
+          inputs=['user/mode', 'throttle', 'angle', 'pos/speed'],
           outputs=['throttle', 'angle'])
 
     if (cfg.CONTROLLER_TYPE != "pigpio_rc") and (cfg.CONTROLLER_TYPE != "MM1"):
