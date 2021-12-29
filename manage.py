@@ -29,6 +29,7 @@ from donkeycar.parts.throttle_filter import ThrottleFilter
 from donkeycar.parts.behavior import BehaviorPart
 from donkeycar.parts.file_watcher import FileWatcher
 from donkeycar.parts.launch import AiCatapult
+from donkeycar.parts.stuckrecovery import StuckRecovery
 from donkeycar.pipeline.augmentations import ImageAugmentation
 from donkeycar.utils import *
 
@@ -510,6 +511,15 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
 
     V.add(aiLauncher,
           inputs=['user/mode', 'throttle', 'angle'],
+          outputs=['throttle', 'angle'])
+
+    stuck_recovery = StuckRecovery(
+        recovery_duration=3.0,
+        recovery_throttle=-1.0,
+        recovery_angle=0.0,
+        stuck_duration=1.0)
+    V.add(stuck_recovery,
+          inputs=['user/mode', 'throttle', 'angle', 'vel/vel_x', 'vel/vel_y', 'vel/vel_z'],
           outputs=['throttle', 'angle'])
 
     if (cfg.CONTROLLER_TYPE != "pigpio_rc") and (cfg.CONTROLLER_TYPE != "MM1"):
