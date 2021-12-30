@@ -30,6 +30,7 @@ from donkeycar.parts.behavior import BehaviorPart
 from donkeycar.parts.file_watcher import FileWatcher
 from donkeycar.parts.launch import AiCatapult
 from donkeycar.parts.stuckrecovery import StuckRecovery
+from donkeycar.parts.obstacleavoidance import ObstacleAvoidance
 from donkeycar.pipeline.augmentations import ImageAugmentation
 from donkeycar.utils import *
 
@@ -137,7 +138,7 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
             #rbx
             cam = DonkeyGymEnv(cfg.DONKEY_SIM_PATH, host=cfg.SIM_HOST, env_name=cfg.DONKEY_GYM_ENV_NAME, conf=cfg.GYM_CONF, record_location=cfg.SIM_RECORD_LOCATION, record_gyroaccel=cfg.SIM_RECORD_GYROACCEL, record_velocity=cfg.SIM_RECORD_VELOCITY, record_lidar=cfg.SIM_RECORD_LIDAR, delay=cfg.SIM_ARTIFICIAL_LATENCY)
             threaded = True
-            inputs = ['angle', 'throttle']
+            inputs = ['angle', 'throttle', 'brake']
         elif cfg.CAMERA_TYPE == "PICAM":
             from donkeycar.parts.camera import PiCamera
             cam = PiCamera(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H, image_d=cfg.IMAGE_DEPTH, framerate=cfg.CAMERA_FRAMERATE, vflip=cfg.CAMERA_VFLIP, hflip=cfg.CAMERA_HFLIP)
@@ -513,14 +514,27 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
           inputs=['user/mode', 'throttle', 'angle'],
           outputs=['throttle', 'angle'])
 
-    stuck_recovery = StuckRecovery(
-        recovery_duration=2.2,
-        recovery_throttle=-0.5,
-        recovery_angle=0.0,
-        stuck_duration=0.5)
-    V.add(stuck_recovery,
-          inputs=['user/mode', 'throttle', 'angle', 'pos/speed'],
-          outputs=['throttle', 'angle'])
+    class ResetBrake:
+        @staticmethod
+        def run():
+            return 0
+
+    V.add(ResetBrake(), inputs=[], outputs=['brake'])
+
+    obstacle_avoidance = ObstacleAvoidance()
+    V.add(obstacle_avoidance,
+          inputs=['user/mode', 'throttle', 'angle', 'pos/speed', 'lidar/dist_array', 'brake'],
+          outputs=['throttle', 'angle', 'brake'])
+
+    # TODO : uncomment after ObstacleAvoidance is ready
+    # stuck_recovery = StuckRecovery(
+    #     recovery_duration=2.2,
+    #     recovery_throttle=-0.5,
+    #     recovery_angle=0.0,
+    #     stuck_duration=0.5)
+    # V.add(stuck_recovery,
+    #       inputs=['user/mode', 'throttle', 'angle', 'pos/speed', 'brake'],
+    #       outputs=['throttle', 'angle', 'brake'])
 
     if (cfg.CONTROLLER_TYPE != "pigpio_rc") and (cfg.CONTROLLER_TYPE != "MM1"):
         if isinstance(ctr, JoystickController):
