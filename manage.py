@@ -521,20 +521,20 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
 
     V.add(ResetBrake(), inputs=[], outputs=['brake'])
 
-    obstacle_avoidance = ObstacleAvoidance()
-    V.add(obstacle_avoidance,
-          inputs=['user/mode', 'throttle', 'angle', 'pos/speed', 'lidar/dist_array', 'brake'],
-          outputs=['throttle', 'angle', 'brake'])
-
     # TODO : uncomment after ObstacleAvoidance is ready
-    # stuck_recovery = StuckRecovery(
-    #     recovery_duration=2.2,
-    #     recovery_throttle=-0.5,
-    #     recovery_angle=0.0,
-    #     stuck_duration=0.5)
-    # V.add(stuck_recovery,
-    #       inputs=['user/mode', 'throttle', 'angle', 'pos/speed', 'brake'],
+    # obstacle_avoidance = ObstacleAvoidance()
+    # V.add(obstacle_avoidance,
+    #       inputs=['user/mode', 'throttle', 'angle', 'pos/speed', 'lidar/dist_array', 'brake'],
     #       outputs=['throttle', 'angle', 'brake'])
+
+    stuck_recovery = StuckRecovery(
+        recovery_duration=2.2,
+        recovery_throttle=-0.5,
+        recovery_angle=0.0,
+        stuck_duration=0.5)
+    V.add(stuck_recovery,
+          inputs=['user/mode', 'throttle', 'angle', 'pos/speed', 'brake'],
+          outputs=['throttle', 'angle', 'brake'])
 
     if (cfg.CONTROLLER_TYPE != "pigpio_rc") and (cfg.CONTROLLER_TYPE != "MM1"):
         if isinstance(ctr, JoystickController):
