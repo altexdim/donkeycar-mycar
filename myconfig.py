@@ -15,18 +15,19 @@ GYM_CONF = {"body_style": "car01",
             "bio": "More robots",
             "frame_skip": 1,
             "start_delay": 0.0,
-            "lidar_config": {
-                "degPerSweepInc": "20.0",
-                "degAngDown": "5",
-                "degAngDelta": "-1.0",
-                "numSweepsLevels": "1",
-                "maxRange": "50.0",
-                "noise": "0.0",
-                "offset_x": "0.0",
-                "offset_y": "0.6",
-                "offset_z": "0.0",
-                "rot_x": "0.0"
-            },
+            # TODO: it's needed for obstacle avoidance
+            # "lidar_config": {
+            #     "degPerSweepInc": "20.0",
+            #     "degAngDown": "5",
+            #     "degAngDelta": "-1.0",
+            #     "numSweepsLevels": "1",
+            #     "maxRange": "50.0",
+            #     "noise": "0.0",
+            #     "offset_x": "0.0",
+            #     "offset_y": "0.6",
+            #     "offset_z": "0.0",
+            #     "rot_x": "0.0"
+            # },
             "cam_config": {
                 "offset_y": "3.0",
                 "offset_z": "1.4",
