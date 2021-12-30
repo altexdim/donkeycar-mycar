@@ -17,15 +17,15 @@ GYM_CONF = {"body_style": "car01",
             "start_delay": 0.0,
             # TODO: it's needed for obstacle avoidance
             # "lidar_config": {
-            #     "degPerSweepInc": "20.0",
-            #     "degAngDown": "5",
+            #     "degPerSweepInc": "20.0", # 18 points
+            #     "degAngDown": "5", # 13.04m max radius / 1.2m car radius
             #     "degAngDelta": "-1.0",
             #     "numSweepsLevels": "1",
-            #     "maxRange": "50.0",
+            #     "maxRange": "12.0", # 13.09m is the max distance, max_fps_dist=~1.6m/frame max_speed=~31m/s
             #     "noise": "0.0",
-            #     "offset_x": "0.0",
-            #     "offset_y": "0.6",
-            #     "offset_z": "0.0",
+            #     "offset_x": "0.0", # 0.8m left/right
+            #     "offset_y": "0.6", # 1.14m down
+            #     "offset_z": "0.0", # 0.9m front / 0.88m back
             #     "rot_x": "0.0"
             # },
             "cam_config": {
