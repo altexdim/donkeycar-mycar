@@ -3688,3 +3688,32 @@ python manage.py drive --model models/mypilot_mountain_1.h5 --type=linear
 # test automatically, tweak ai_launcher
 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.1 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_1.h5 --type=linear
 
+DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.1 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_1.h5 --type=linear
+
+--------------
+0.5-0.8 - dnf
+-- stable --
+0.9 - 62.71
+1.0 - 60.47 60.37
+>>> best >>> 1.1 - 59.97 59.95 60.05 59.81 60.01 59.76 59.79 60.04 ~ 59.92
+1.2 - 59.43 59.70 59.56 59.90 59.62 59.65 59.72 59.69 59.74 ~ 59.67
+1.3 -xx- 59.26 59.18 59.57 59.14
+1.4 -xx- 59.09 59.06 59.33
+1.5 -xx- 58.90 58.95
+1.6 -- 58.90 -- dnf
+1.7 -xxx- 58.92 -- 59.12
+1.8 -xxx- 58.75 dnf
+1.9 -xxx- 58.56 58.60
+2.0 -xxx- 58.39 58.35
+2.1 - 58.31 58.47 dnf 58.35
+-- unstable --
+2.2 - 58.70 --
+2.3 - dnf   -- 
+2.4 - dnf   -- 
+2.5 - 58.56 -- 
+2.6 - dnf   --
+2.7 - 58.75 --
+2.8 - 58.51 --
+2.9 - dnf   -- 
+3.0 - 58.66 --
+
