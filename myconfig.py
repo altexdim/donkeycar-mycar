@@ -6,8 +6,9 @@ SIM_HOST = "127.0.0.1"              # when racing on virtual-race-league use hos
 DONKEY_GYM_ENV_NAME = "donkey-mountain-track-v0"
 # body_style: donkey|bare|car01
 # body_rgb : 0-255
+# good orange colors: (254, 96, 2)=orange (243, 82, 41)=salmon-orange (254, 92, 19)=plastic-orange
 GYM_CONF = {"body_style": "car01",
-            "body_rgb": (255, 64, 0),
+            "body_rgb": (243, 82, 41),
             "car_name": "Dmitry Ananyev",
             "font_size": 20,
             "racer_name": "Dmitry Ananyev",
