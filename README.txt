@@ -3695,7 +3695,7 @@ DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYC
 -- stable --
 0.9 - 62.71
 1.0 - 60.47 60.37
->>> best >>> 1.1 - 59.97 59.95 60.05 59.81 60.01 59.76 59.79 60.04 ~ 59.92
+>>> best stable >>> 1.1 - 59.97 59.95 60.05 59.81 60.01 59.76 59.79 60.04 ~ 59.92
 1.2 - 59.43 59.70 59.56 59.90 59.62 59.65 59.72 59.69 59.74 ~ 59.67
 1.3 -xx- 59.26 59.18 59.57 59.14
 1.4 -xx- 59.09 59.06 59.33
@@ -3704,7 +3704,7 @@ DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYC
 1.7 -xxx- 58.92 -- 59.12
 1.8 -xxx- 58.75 dnf
 1.9 -xxx- 58.56 58.60
-2.0 -xxx- 58.39 58.35
+>>> unstable fastest >>> 2.0 -xxx- 58.39 58.35
 2.1 - 58.31 58.47 dnf 58.35
 -- unstable --
 2.2 - 58.70 --
@@ -3734,3 +3734,40 @@ INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=4 total
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=5 total_time=96.33 lap_time=18.94
 INFO:gym_donkeycar.envs.donkey_sim:CollisionWithStartingLine: lap_number=6 total_time=115.27 lap_time=18.94
 
+export TF_FORCE_GPU_ALLOW_GROWTH='true'
+python train.py --model models/mypilot_mountain_2.h5 --tubs=data/tub_1_good,data/tub_2_good,data/tub_3_good,data/tub_4_good,data/tub_5_good --type=linear
+DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.0 DONKEYCAR_CFG_AI_LAUNCH_DURATION=0 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=False DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear
+DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.0 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear
+
+for i in 0.5 0.6 0.7 0.8 0.9 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 1.9 2.0 2.1 2.2 2.3 2.4 2.5 2.6 2.7 2.8 2.9 3.0; do echo ----$i----; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=$i DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear; done
+
+0.5 - dnf
+0.6 - dnf
+0.7 - dnf
+0.8 - dnf
+0.9 - 61.78 + 61.70 
+1.0 - 59.62 + 59.58 + 59.70 + 59.68
+1.1 - 59.10 + 59.03 + 59.04 + 58.97
+1.2 - 58.87 + 58.73 + dnf
+1.3 - 58.59 + 58.82 + 58.70 + 58.66
+1.4 - 58.45 + 58.65 + 58.55 + 58.57
+1.5 - 58.30 + 58.29 + 58.49 + 58.30 - best fastest
+1.6 - 58.53 + 58.09 + 58.42 + 58.32
+1.7 - 58.53 + 58.35 + 58.48 + 58.44
+1.8 - 58.47 + dnf
+1.9 - dnf
+2.0 - dnf
+2.1 - 58.26 + 58.44
+2.2 - dnf
+2.3 - 58.23 + 58.30
+2.4 - 58.55 + 58.45
+2.5 - 58.56 + 58.34
+2.6 - dnf
+2.7 - 58.34 + 58.82
+2.8 - 58.52 + dnf
+2.9 - 58.09 + dnf
+3.0 - 58.30 + 58.45
+
+for i in 0.9 1.0 1.1 1.2 1.3 1.4 1.5 1.6 1.7 1.8 2.1 2.3 2.4 2.5 2.7 2.8 2.9 3.0; do echo ----$i----; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=$i DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear; done
+
+for i in 1.0 1.1 1.3 1.4 1.5 1.6 1.7; do echo ----$i----; DONKEYCAR_CFG_MAX_LOOPS=3900 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=$i DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear; done

@@ -127,18 +127,13 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
               threaded=True)
 
     else:
-        if cfg.DONKEY_GYM:
-            from donkeycar.parts.dgym import DonkeyGymEnv
-
         inputs = []
         outputs = ['cam/image_array']
         threaded = True
         if cfg.DONKEY_GYM:
-            from donkeycar.parts.dgym import DonkeyGymEnv 
-            #rbx
-            cam = DonkeyGymEnv(cfg.DONKEY_SIM_PATH, host=cfg.SIM_HOST, env_name=cfg.DONKEY_GYM_ENV_NAME, conf=cfg.GYM_CONF, record_location=cfg.SIM_RECORD_LOCATION, record_gyroaccel=cfg.SIM_RECORD_GYROACCEL, record_velocity=cfg.SIM_RECORD_VELOCITY, record_lidar=cfg.SIM_RECORD_LIDAR, delay=cfg.SIM_ARTIFICIAL_LATENCY)
-            threaded = True
-            inputs = ['angle', 'throttle', 'brake']
+            from donkeycar.parts.dgym import DonkeyGymEnv, DonkeyGymEnvCamera
+            donkey_gym_env = DonkeyGymEnv(cfg.DONKEY_SIM_PATH, host=cfg.SIM_HOST, env_name=cfg.DONKEY_GYM_ENV_NAME, conf=cfg.GYM_CONF, record_location=cfg.SIM_RECORD_LOCATION, record_gyroaccel=cfg.SIM_RECORD_GYROACCEL, record_velocity=cfg.SIM_RECORD_VELOCITY, record_lidar=cfg.SIM_RECORD_LIDAR, delay=cfg.SIM_ARTIFICIAL_LATENCY)
+            cam = DonkeyGymEnvCamera(donkey_gym_env)
         elif cfg.CAMERA_TYPE == "PICAM":
             from donkeycar.parts.camera import PiCamera
             cam = PiCamera(image_w=cfg.IMAGE_W, image_h=cfg.IMAGE_H, image_d=cfg.IMAGE_DEPTH, framerate=cfg.CAMERA_FRAMERATE, vflip=cfg.CAMERA_VFLIP, hflip=cfg.CAMERA_HFLIP)
@@ -208,13 +203,14 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
             V.add(ctr, outputs=['user/angle', 'user/throttle', 'user/mode', 'recording'],threaded=False)
         else:
             if cfg.CONTROLLER_TYPE == "custom":  #custom controller created with `donkey createjs` command
-                from my_joystick import MyJoystickController
-                ctr = MyJoystickController(
-                throttle_dir=cfg.JOYSTICK_THROTTLE_DIR,
-                throttle_scale=cfg.JOYSTICK_MAX_THROTTLE,
-                steering_scale=cfg.JOYSTICK_STEERING_SCALE,
-                auto_record_on_throttle=cfg.AUTO_RECORD_ON_THROTTLE)
-                ctr.set_deadzone(cfg.JOYSTICK_DEADZONE)          
+                # from my_joystick import MyJoystickController
+                # ctr = MyJoystickController(
+                # throttle_dir=cfg.JOYSTICK_THROTTLE_DIR,
+                # throttle_scale=cfg.JOYSTICK_MAX_THROTTLE,
+                # steering_scale=cfg.JOYSTICK_STEERING_SCALE,
+                # auto_record_on_throttle=cfg.AUTO_RECORD_ON_THROTTLE)
+                # ctr.set_deadzone(cfg.JOYSTICK_DEADZONE)
+                raise (Exception("Uncomment the code above this line if you want to use a custom controller"))
             elif cfg.CONTROLLER_TYPE == "MM1":
                 from donkeycar.parts.robohat import RoboHATController            
                 ctr = RoboHATController(cfg)
@@ -535,6 +531,12 @@ def drive(cfg, model_path=None, use_joystick=False, model_type=None,
     V.add(stuck_recovery,
           inputs=['user/mode', 'throttle', 'angle', 'pos/speed', 'brake'],
           outputs=['throttle', 'angle', 'brake'])
+
+    if cfg.DONKEY_GYM:
+        from donkeycar.parts.dgym import DonkeyGymEnvControl
+        # noinspection PyUnboundLocalVariable
+        control = DonkeyGymEnvControl(donkey_gym_env)
+        V.add(control, inputs=['angle', 'throttle', 'brake'], outputs=[], threaded=True)
 
     if (cfg.CONTROLLER_TYPE != "pigpio_rc") and (cfg.CONTROLLER_TYPE != "MM1"):
         if isinstance(ctr, JoystickController):
