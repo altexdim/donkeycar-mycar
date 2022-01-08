@@ -3774,12 +3774,11 @@ for i in 1.0 1.1 1.3 1.4 1.5 1.6 1.7; do echo ----$i----; DONKEYCAR_CFG_MAX_LOOP
 
 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.5 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear
 
-# update tag
+# 1. copy mycar to docker repo
+# 2. update tag
 vim pln-docker-compose.yml
-
-# rebuild
+# 3. rebuild
 docker-compose -f ./pln-docker-compose.yml up --build --no-start
-
-# push changes to dockerhub
+# 4. push changes to dockerhub
 docker login
 docker push altexdim/donkeycar_race2:v8jan22a
