@@ -3782,6 +3782,7 @@ docker-compose -f ./pln-docker-compose.yml up --build --no-start
 # 4. push changes to dockerhub
 docker login
 docker push altexdim/donkeycar_race2:v8jan22a
-# 5. run locally for testing
+# 5. run locally for testing (auto start)
 docker run -it --rm --name "donkeysim_altex" --network=host -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v8jan22a" bash -c "cd /root/mycar; python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear --myconfig=myconfig-docker-local.py"
-
+# 6. run remotely for production (manual start)
+docker run -it --rm --name "donkeysim_altex" --network=host -p "127.0.0.1:18887:8887" "altexdim/donkeycar_race2:v8jan22a" bash -c "cd /root/mycar; python manage.py drive --model models/mypilot_mountain_2.h5 --type=linear --myconfig=myconfig-docker-trnm.py"
