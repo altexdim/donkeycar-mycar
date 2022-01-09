@@ -4,7 +4,7 @@ DONKEY_GYM = True
 DONKEY_SIM_PATH = "remote" #"/home/tkramer/projects/sdsandbox/sdsim/build/DonkeySimLinux/donkey_sim.x86_64" when racing on virtual-race-league use "remote", or user "remote" when you want to start the sim manually first.
 SIM_HOST = "127.0.0.1"              # when racing on virtual-race-league use host "trainmydonkey.com"
 DONKEY_GYM_ENV_NAME = "donkey-mountain-track-v0"
-# body_style: donkey|bare|car01
+# body_style: donkey|bare|car01|f1|cybertruck
 # body_rgb : 0-255
 # good orange colors: (254, 96, 2)=orange (243, 82, 41)=salmon-orange (254, 92, 19)=plastic-orange
 GYM_CONF = {"body_style": "car01",
