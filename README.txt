@@ -3886,3 +3886,13 @@ sleep 3; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=Fals
 ---------
 export TF_FORCE_GPU_ALLOW_GROWTH='true'
 python train.py --model models/mypilot_mountain_2_5_1.h5 --tubs=data/good1/tub_1_good,data/good1/tub_2_good,data/good1/tub_3_good,data/good1/tub_4_good,data/good1/tub_5_good,data/good2/tub_01_good,data/good2/tub_02_good,data/good2/tub_03_good,data/good2/tub_04_good --type=linear
+
+
+--- super stable? ---
+for i in 0 1 2 3; do sleep $i; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.2 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2_5_1.h5 --type=linear & done
+
+for i in 0 1 2 3; do sleep $i; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.3 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2_5_1.h5 --type=linear & done
+
+for i in 0 1 2 3; do sleep $i; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.1 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2_5_1.h5 --type=linear & done
+
+for i in 0 1 2 3; do sleep $i; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.0 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/mypilot_mountain_2_5_1.h5 --type=linear & done
