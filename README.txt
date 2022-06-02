@@ -3952,11 +3952,13 @@ python manage.py drive
 
 python train.py --model models/altex_mountain_2.h5 --tubs=data/tub1,data/tub2,data/tub3,data/tub4 --type=linear
 python train.py --model models/altex_mountain_3.h5 --tubs=data/tub5 --type=linear
+python train.py --model models/altex_sparkfun_1.h5 --tubs=data/sparkfun1,data/sparkfun2 --type=linear
 
 3. test
 
 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.0 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"'  python manage.py drive --model models/altex_mountain_2.h5 --type=linear
 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.0 DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"'  python manage.py drive --model models/altex_mountain_3.h5 --type=linear
+DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=1.0 DONKEYCAR_CFG_AI_LAUNCH_DURATION=10 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"'  python manage.py drive --model models/altex_sparlfun_1.h5 --type=linear
 
 for i in 0.8 0.9 1.0 1.1 1.2 1.3 1.4 1.5 1.6; do echo ---- $i ----; DONKEYCAR_CFG_MAX_LOOPS=1300 DONKEYCAR_CFG_USE_JOYSTICK_AS_DEFAULT=False DONKEYCAR_CFG_AI_THROTTLE_MULT=$i DONKEYCAR_CFG_AI_LAUNCH_DURATION=3.25 DONKEYCAR_CFG_AI_LAUNCH_THROTTLE=1.0 DONKEYCAR_CFG_AI_LAUNCH_KEEP_ENABLED=True DONKEYCAR_CFG_WEB_INIT_MODE='"local"' python manage.py drive --model models/altex_mountain_3.h5 --type=linear 2>&1 | grep total_time; done
 
@@ -3989,3 +3991,30 @@ ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c change_drive_mode -m lo
 
 --- stop ---
 ssh -p22222 -T dockerusr@donkey-sim.roboticist.dev -- -c stop_container
+
+
+===========
+When a participant runs their model on their PC the model receives an image from the Simulation server as an input
+and produces a command with a steering angle and a throttle value as an output, which in turn sends back 
+to the Simulation server.
+
+The model makes a decision on the steering angle and a throttle value based on the image it receives.
+And the model thinks that it's happening in the real time. But in fact in takes some time for the image
+to go from the Simulation server to a participant's PC via the internet.
+And while the image is traveling through the internet it become slightly outdated, and the situation 
+on the Simulation server is slightly changing.
+
+It leeds to 2 problems:
+1 - The model takes its decision based on a slightly outdated image from a camera
+2 - The Simulation will receive a slightly outdated command from the model because it also takes some time 
+for the command to travel through the internet back to the Simulation server.
+
+We're taking about a fraction of a second, but it still can be noticeble and leeds to a model to undershoot. 
+A car in the Simulation world can miss a turn if the decision on the steering angle was delayed to a fraction of a second.
+
+It calls lags in online multiplayer computer games.
+
+To reduce this networking delay we can run the model physically as close as possible 
+to the Simulation server. We can even run it on the same server which will effectively eliminate the networking delay.
+===========
+
